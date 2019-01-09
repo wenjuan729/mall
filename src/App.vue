@@ -7,7 +7,10 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  // created() {
+  //   axios.get("/api/login").then()
+  // }
 }
 </script>
 
