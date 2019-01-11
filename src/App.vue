@@ -5,13 +5,13 @@
     </div>
     <ul class="header-nav">
       <div class="nav-left">
-        <router-link class="nav-item" to='home' tag="li">首页</router-link>
+        <router-link class="nav-item" :to="{name:'home'}" tag="li">首页</router-link>
       </div>
       <div class="nav-right">
-        <router-link class="nav-item" to='login' tag="li">登陆/注册</router-link>
-        <router-link class="nav-item" to='personal' tag="li">个人中心</router-link>
-        <router-link class="nav-item" to='upload' tag="li">我要上传</router-link>
-        <router-link class="nav-item" to='about' tag="li">关于</router-link>
+        <router-link class="nav-item" :to="{name:'login'}" tag="li">登陆/注册</router-link>
+        <router-link class="nav-item" :to="{name:'personal'}" tag="li">个人中心</router-link>
+        <router-link class="nav-item" :to="{name:'upload'}" tag="li">我要上传</router-link>
+        <router-link class="nav-item" :to="{name:'about'}" tag="li">关于</router-link>
       </div>
     </ul>
     <router-view/>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import Home from './components/home'
+// import Home from './components/home'
 
 export default {
   name: 'App',
   components:{
-  	Home
+  	// Home
   }
   // created() {
   //   axios.get("/api/login").then()
@@ -36,30 +36,30 @@ export default {
 @import 'assets/stylus/index.styl'
 #app
   .header-pic
-    width 1120px
-    height 165px
-    margin 0 auto
-    img
-      width 1120px
+    width 100%
+    height 185px
+    background-color #ffd760
+    img 
+     margin-left 200px 
+      
   .header-nav
     height 80px
-    width 1120px
-    margin 0 auto
+    width 100%
     position relative
     line-height 80px
     text-align center
     background-color #ffff66
     border-1px(rgba(240,20,20,0.1))
     .nav-left
-      width 20%
+      width 15%
       float left
       font-weight 500
     .nav-right
-      width 50%
+      width 40%
       float right
     .nav-item
       display inline-block
-      width 105px
+      width 120px
       padding 10px
       text-align center
       line-height 40px
