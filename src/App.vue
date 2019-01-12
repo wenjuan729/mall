@@ -14,7 +14,7 @@
         <router-link class="nav-item" :to="{name:'about'}" tag="li">关于</router-link>
       </div>
     </ul>
-    <router-view/>
+    <router-view class="center"/>
   </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
       float right
     .nav-item
       display inline-block
-      width 120px
+      width 118px
       padding 10px
       text-align center
       line-height 40px
@@ -69,6 +69,7 @@ export default {
       font-size 20px
       &:hover 
         background-color #ffff99
+  
       
       
       

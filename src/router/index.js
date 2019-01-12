@@ -7,6 +7,12 @@ import Personal from '@/components/personal'
 import Upload from '@/components/upload'
 import About from '@/components/about'
 
+import New from '@/components/home/new'
+import Phone from '@/components/home/phone'
+import Clothes from '@/components/home/clothes'
+import Beauty from '@/components/home/beauty'
+import Other from '@/components/home/other'
+
 Vue.use(Router)
 
 export default new Router({
@@ -14,7 +20,34 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children:[
+        {
+          path: 'new',
+          name: 'new',
+          component: New
+        },
+        {
+          path: 'phone',
+          name: 'phone',
+          component: Phone
+        },
+        {
+          path: 'clothes',
+          name: 'clothes',
+          component: Clothes
+        },
+        {
+          path: 'beauty',
+          name: 'beauty',
+          component: Beauty
+        },
+        {
+          path: 'other',
+          name: 'other',
+          component: Other
+        },
+      ]
     },
     {
       path: '/login',
