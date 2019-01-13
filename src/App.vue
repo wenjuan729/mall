@@ -14,7 +14,7 @@
         <router-link class="nav-item" :to="{name:'about'}" tag="li">关于</router-link>
       </div>
     </ul>
-    <router-view class="center"/>
+    <router-view />
   </div>
 </template>
 

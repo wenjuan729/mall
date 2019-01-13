@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="home-content">
         <v-slide></v-slide>    
-        <ul class="shop-wrapper">
-            <router-link :to="{name: 'new'}" tag="li">最新</router-link>
-            <router-link :to="{name: 'phone'}" tag="li">手机</router-link>
-            <router-link :to="{name: 'clothes'}" tag="li">服装</router-link>
-            <router-link :to="{name: 'beauty'}" tag="li">美妆</router-link>
-            <router-link :to="{name: 'other'}" tag="li">其它</router-link>
+        <ul class="shop-nav">
+            <router-link class="shop-nav-item" :to="{name: 'new'}" tag="li">最新</router-link>
+            <router-link class="shop-nav-item" :to="{name: 'phone'}" tag="li">手机</router-link>
+            <router-link class="shop-nav-item" :to="{name: 'clothes'}" tag="li">服装</router-link>
+            <router-link class="shop-nav-item" :to="{name: 'beauty'}" tag="li">美妆</router-link>
+            <router-link class="shop-nav-item" :to="{name: 'other'}" tag="li">其它</router-link>
         </ul>
         <router-view></router-view>
     </div>
@@ -22,4 +22,31 @@ export default {
     }
 }
 </script>
+
+<style lang='stylus' ref='stylesheet/stylus'>
+.home-content
+    width 100%
+    height 100%
+    background-color #ffffcc
+    .shop-nav
+        width 1190px
+        height 50px
+        margin 0 auto
+        background-color #ffff99
+        border-radius 10px
+        .shop-nav-item
+            float left
+            display inline-block
+            width 230px
+            text-align center
+            line-height 50px
+            cursor pointer
+            font-size 16px
+            color #222
+        .router-link-active
+            font-size 20px
+            font-weight 700
+            border-bottom 2px solid #000
+
+</style>
 
