@@ -14,6 +14,7 @@
 
 <script>
 import Slide from './home/slide'
+import New from './home/new'
 
 export default {
     
@@ -46,7 +47,8 @@ export default {
         .router-link-active
             font-size 20px
             font-weight 700
-            border-bottom 2px solid #000
+            border-bottom 3px solid #000
+            boeder-radius 5px
 
 </style>
 

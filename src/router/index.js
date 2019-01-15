@@ -6,7 +6,7 @@ import Home from '@/components/home'
 import Login from '@/components/login'
 import Personal from '@/components/personal'
 import Upload from '@/components/upload'
-import About from '@/components/about'
+import Register from '@/components/register'
 
 import New from '@/components/home/new'
 import Phone from '@/components/home/phone'
@@ -55,6 +55,11 @@ export default new Router({
       name: 'login',
       component: Login
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
     { path: '/personal',
       name: 'personal',
       component: Personal
@@ -64,10 +69,6 @@ export default new Router({
       name: 'upload',
       component: Upload
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: About
-    }
+    
   ]
 })

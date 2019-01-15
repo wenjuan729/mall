@@ -8,10 +8,10 @@
         <router-link class="nav-item" :to="{name:'home'}" tag="li">首页</router-link>
       </div>
       <div class="nav-right">
-        <router-link class="nav-item" :to="{name:'login'}" tag="li">登陆/注册</router-link>
+        <router-link class="nav-item" :to="{name:'login'}" tag="li">登陆</router-link>
+        <router-link class="nav-item" :to="{name:'register'}" tag="li">注册</router-link>
         <router-link class="nav-item" :to="{name:'personal'}" tag="li">个人中心</router-link>
         <router-link class="nav-item" :to="{name:'upload'}" tag="li">我要上传</router-link>
-        <router-link class="nav-item" :to="{name:'about'}" tag="li">关于</router-link>
       </div>
     </ul>
     <router-view />

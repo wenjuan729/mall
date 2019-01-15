@@ -2,7 +2,7 @@
     <div class="login-wrapper">
         <div class="login_box">
             <div class="login_header">
-                账户登录
+                账户注册
             </div>
             <div class="login_main">
                 <form action="">
@@ -15,10 +15,11 @@
                         <input type="password" placeholder="请输入密码" class="password">
                     </div>
                     <button text="submit" class="sub">
-                        登录
+                        提交注册
                     </button>    
-                </form>
-                <router-link class="register" :to="{name: 'register'}">免费注册，有惊喜></router-link>   
+                </form> 
+                <router-link class="login" :to="{name: 'login'}">已有账号，去登录</router-link>   
+
             </div> 
         </div>
     </div>
@@ -37,6 +38,7 @@ export default {
     height 600px
     background-image url(../assets/img/login_ba.jpg) 
     background-position center
+    background-repat no-repat
     .login_box
         float right
         width 365px
@@ -81,7 +83,7 @@ export default {
                 font-weight 700
                 color #fff
                 cursor pointer
-            .register
+            .login
                 display inline-block
                 width 100%
                 height 20px
