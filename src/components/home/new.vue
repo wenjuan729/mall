@@ -1,22 +1,26 @@
 <template>
     <div class="newWrapper">
         <ul class="newBox">
-            <router-link v-for="(item, index) in newList" 
+            <router-link v-for="(item, index) in shopList" 
                         :key="index" 
                         class="newBody" 
                         :to="{name: 'shopDetails', params: {id: item.goodsId}}" 
-                        tag="li">
-                <img :src="item.image" class="image">
-                <p class="title" :title="item.title">{{item.title}}</p>
-                <p class="priceBox">
-                   <span class="priceText">二手价</span>
-                   <span class=price :price="item.price">￥{{item.price}}</span> 
-                </p>
-                <div class="underline"></div>
-                <div class="newBodyFooter">
-                    <span class="username">{{item.username}}</span>
-                    <span class="address">{{item.address}}</span>
+                        tag="li"
+                        >
+                <div @click="setStore(index)">
+                    <img :src="item.image" class="image">
+                    <p class="title" :title="item.title">{{item.title}}</p>
+                    <p class="priceBox">
+                    <span class="priceText">二手价</span>
+                    <span class=price :price="item.price">￥{{item.price}}</span> 
+                    </p>
+                    <div class="underline"></div>
+                    <div class="newBodyFooter">
+                        <span class="username">{{item.username}}</span>
+                        <span class="address">{{item.address}}</span>
+                    </div>  
                 </div>
+                
             </router-link>
         </ul>
     </div>
@@ -26,30 +30,42 @@
 export default {
     data () {
         return {
-            newList:[{
+            shopList:[{
                 goodsId:1,
                 image:"http://img.alicdn.com/bao/uploaded/i2/O1CN01U95Jze1KWofuLDWSE_!!0-fleamarket.jpg",
                 title:"iphone配件",
                 price:"50",
+                quality:"8成新",
                 username:"1001",
-                address:"北京"
+                address:"北京",
+                deliver:"8"
             },
             {
                 goodsId:2,
-               image:"http://img.alicdn.com/bao/uploaded/i4/2387753754/TB2qA8ShgDD8KJjy0FdXXcjvXXa_!!2387753754.jpg",
+                image:"http://img.alicdn.com/bao/uploaded/i4/2387753754/TB2qA8ShgDD8KJjy0FdXXcjvXXa_!!2387753754.jpg",
                 title:"[南大人]秋冬款长裙",
                 price:"80",
+                quality:"全新",
                 username:"1002",
-                address:"山东" 
+                address:"山东",
+                deliver:"0" 
             },
             {
                 goodsId:3,
                 image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
                 title:"露华浓粉底液",
                 price:"25",
+                quality:"8成新",
                 username:"1003",
-                address:"哈尔滨"
+                address:"哈尔滨",
+                deliver:"12"
             }]
+        }
+    },
+    methods:{
+        setStore (index) {
+            console.log(111)
+            this.$store.commit('setVal',this.shopList[index]);
         }
     }
 }

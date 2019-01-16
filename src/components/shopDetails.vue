@@ -2,28 +2,28 @@
     <div class="detail">
         <div class="detailMain">
             <div class="shopimgWrapper">
-                <img class="shopImg" src="http://img.alicdn.com/bao/uploaded/i2/O1CN01U95Jze1KWofuLDWSE_!!0-fleamarket.jpg" >
+                <img class="shopImg" :src="shopdetailList.image" >
             </div>
             <div class="shopSelect">
                 <div class="shopSelectHeader">
-                    <h2 class="shopTitle">iphone配件</h2>
+                    <h2 class="shopTitle">{{shopdetailList.title}}</h2>
                     <p class="shopPriceWrapper">
                         <span class="priceText">特 卖 价：</span>
-                        <span class="shopPrice">￥50</span>
+                        <span class="shopPrice">￥{{shopdetailList.price}}</span>
                     </p>
                 </div>
                 <div class="shopSelectContent">
                     <p class="qualityWrapper">
                         <span class="qualityText">成 色：</span>
-                        <span class="quality">9成新</span>
+                        <span class="quality">{{shopdetailList.quality}}</span>
                     </p>
                     <p class="adderssWrapper">
                         <span class="adderssText">所 在 地：</span>
-                        <span class="address">北京</span>
+                        <span class="address">{{shopdetailList.address}}</span>
                     </p>
                     <p class="deliverWrapper">
                         <span class="deliverText">快 递：</span>
-                        <span class="deliver">￥8</span>
+                        <span class="deliver">￥{{shopdetailList.deliver}}</span>
                     </p>
                 </div>
                 <div class="shopFooter">
@@ -52,48 +52,25 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     created () {
-        const goodsId = this.$route.params.id;
-        const index = this.shopList.findIndex( item => item.goodsId == goodsId );//寻找数组中第一个符合条件的值
-        console.log(goodsId)
-        console.log(index)
-        //这时候就可以动态请求数据了，现在先用假数据模拟
-
+        // const goodsId = this.$route.params.id;
+        // const index = this.shopList.findIndex( item => item.goodsId == goodsId );//寻找数组中第一个符合条件的值
+        // console.log(goodsId)
+        // console.log(index)
+        // //这时候就可以动态请求数据了，现在先用假数据模拟
     },
     data () {
         return {
-            shopList:[{
-                goodsId:1,
-                image:"http://img.alicdn.com/bao/uploaded/i2/O1CN01U95Jze1KWofuLDWSE_!!0-fleamarket.jpg",
-                title:"iphone配件",
-                price:"50",
-                quality:"8成新",
-                username:"1001",
-                address:"北京",
-                deliver:"8"
-            },
-            {
-                goodsId:2,
-                image:"http://img.alicdn.com/bao/uploaded/i4/2387753754/TB2qA8ShgDD8KJjy0FdXXcjvXXa_!!2387753754.jpg",
-                title:"[南大人]秋冬款长裙",
-                price:"80",
-                quality:"全新",
-                username:"1002",
-                address:"山东",
-                deliver:"0" 
-            },
-            {
-                goodsId:3,
-                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
-                title:"露华浓粉底液",
-                price:"25",
-                quality:"8成新",
-                username:"1003",
-                address:"哈尔滨",
-                deliver:"12"
-            }]
+            
         }
+    },
+    computed:{
+        shopdetailList () {
+            return this.$store.state.shopdetailList;
+        }
+        // ...mapState('[shopdetailList]')
     }
 }
 </script>
