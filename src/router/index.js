@@ -4,15 +4,17 @@ import HelloWorld from '@/components/HelloWorld'
 
 import Home from '@/components/home'
 import Login from '@/components/login'
+import Register from '@/components/register'
 import Personal from '@/components/personal'
 import Upload from '@/components/upload'
-import Register from '@/components/register'
 
 import New from '@/components/home/new'
 import Phone from '@/components/home/phone'
 import Clothes from '@/components/home/clothes'
 import Beauty from '@/components/home/beauty'
 import Other from '@/components/home/other'
+
+import ShopDetails from '@/components/shopDetails'
 
 Vue.use(Router)
 
@@ -69,6 +71,11 @@ export default new Router({
       name: 'upload',
       component: Upload
     },
+    {
+      path: '/shopDetails/:id',
+      name: 'shopDetails',
+      component: ShopDetails
+    }
     
   ]
 })

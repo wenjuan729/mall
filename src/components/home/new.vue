@@ -1,7 +1,11 @@
 <template>
     <div class="newWrapper">
         <ul class="newBox">
-            <router-link v-for="(item, index) in newList" :key="index" class="newBody" to="#" tag="li">
+            <router-link v-for="(item, index) in newList" 
+                        :key="index" 
+                        class="newBody" 
+                        :to="{name: 'shopDetails', params: {id: item.goodsId}}" 
+                        tag="li">
                 <img :src="item.image" class="image">
                 <p class="title" :title="item.title">{{item.title}}</p>
                 <p class="priceBox">
@@ -23,6 +27,7 @@ export default {
     data () {
         return {
             newList:[{
+                goodsId:1,
                 image:"http://img.alicdn.com/bao/uploaded/i2/O1CN01U95Jze1KWofuLDWSE_!!0-fleamarket.jpg",
                 title:"iphone配件",
                 price:"50",
@@ -30,6 +35,7 @@ export default {
                 address:"北京"
             },
             {
+                goodsId:2,
                image:"http://img.alicdn.com/bao/uploaded/i4/2387753754/TB2qA8ShgDD8KJjy0FdXXcjvXXa_!!2387753754.jpg",
                 title:"[南大人]秋冬款长裙",
                 price:"80",
@@ -37,6 +43,7 @@ export default {
                 address:"山东" 
             },
             {
+                goodsId:3,
                 image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
                 title:"露华浓粉底液",
                 price:"25",
