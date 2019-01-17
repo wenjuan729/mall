@@ -43,12 +43,13 @@ export default {
 }
 </script>
 
-<style lang='stylus' ref='stylesheet/stylus'>
+<style lang='stylus' ref='stylesheet/stylus' scoped>
+@import '../../assets/stylus/index.styl'
 .slider
   width 1190px
   margin 0 auto
   .slider-header
-    padding-top 20px
+    padding-top 10px
     text-align center
     h1
       color:#504A4D
@@ -56,7 +57,6 @@ export default {
       display inline-block
       font-size 14px
       color #3D3D3D
-      padding-top 10px
   .slider-main
     margin-left 190px
     width 820px

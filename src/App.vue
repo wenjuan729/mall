@@ -15,16 +15,18 @@
       </div>
     </ul>
     <router-view />
+    <footer>关于</footer>
   </div>
+
 </template>
 
 <script>
-// import Home from './components/home'
+import Footer from './components/footer'
 
 export default {
   name: 'App',
   components:{
-  	// Home
+  	Footer
   }
   // created() {
   //   axios.get("/api/login").then()
@@ -32,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang='stylus' ref='stylesheet/stylus'>
+<style lang='stylus' ref='stylesheet/stylus' scoped>
 @import 'assets/stylus/index.styl'
 #app
   .header-pic
@@ -55,11 +57,11 @@ export default {
       float left
       font-weight 500
     .nav-right
-      width 40%
+      width 50%
       float right
     .nav-item
       display inline-block
-      width 118px
+      width 130px
       padding 10px
       text-align center
       line-height 40px

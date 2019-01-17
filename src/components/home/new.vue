@@ -59,6 +59,26 @@ export default {
                 username:"1003",
                 address:"哈尔滨",
                 deliver:"12"
+            },
+            {
+                goodsId:4,
+                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
+                title:"露华浓粉底液",
+                price:"25",
+                quality:"8成新",
+                username:"1003",
+                address:"哈尔滨",
+                deliver:"12"
+            },
+            {
+                goodsId:5,
+                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
+                title:"露华浓粉底液",
+                price:"25",
+                quality:"8成新",
+                username:"1003",
+                address:"哈尔滨",
+                deliver:"12"
             }]
         }
     },
@@ -71,22 +91,22 @@ export default {
 }
 </script>
 
-<style lang='stylus' ref='stylesheet/stylus'>
+<style lang='stylus' ref='stylesheet/stylus' scoped>
+@import '../../assets/stylus/index.styl'
 .newWrapper
     width 1190px
     margin 0 auto
     .newBox
-        display flex
         margin-top 10px
-        width 100%
+        width 1190px
         border-radius 5px
         .newBody
-            flex 1
             position relative
             display inline-block
             width 385px
             height 450px
             margin-right 10px
+            margin-top 15px
             background-color #fff
             border-radius 10px
             cursor pointer

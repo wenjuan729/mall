@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style lang='stylus' ref='stylesheet/stylus'>
+<style lang='stylus' ref='stylesheet/stylus' scoped>
 @import '../assets/stylus/index.styl'
 .login-wrapper
     width 100%

@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang='stylus' ref='stylesheet/stylus'>
+<style lang='stylus' ref='stylesheet/stylus' scoped>
 .home-content
     width 100%
     height 100%
