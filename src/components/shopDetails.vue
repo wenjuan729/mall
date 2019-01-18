@@ -23,7 +23,8 @@
                     </p>
                     <p class="deliverWrapper">
                         <span class="deliverText">快 递：</span>
-                        <span class="deliver">￥{{shopdetailList.deliver}}</span>
+                        <span class="deliver" v-if="shopdetailList.deliver > 0">￥{{shopdetailList.deliver}}</span>
+                        <span class="deliver" v-else>包邮</span>
                     </p>
                 </div>
                 <div class="shopFooter">
