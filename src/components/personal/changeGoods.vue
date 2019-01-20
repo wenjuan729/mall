@@ -9,35 +9,35 @@
                 <div class="changeText">
                     <div class="box">
                         <label for="">商品类别：</label>
-                        <input type="text" placeholder="请输入商品类别">
+                        <input type="text" placeholder="请输入商品类别" v-model="changeData.category">
                     </div>
                     <div class="box">
                         <label for="">商品名称：</label>
-                        <input type="text" >
+                        <input type="text" v-model="changeData.title">
                     </div>
                     <div class="box">
                         <label for="">商品价格：</label>
-                        <input type="text" >
+                        <input type="text" v-model="changeData.price">
                     </div>
                     <div class="box">
                         <label for="">商品质量：</label>
-                        <input type="text" >
+                        <input type="text" v-model="changeData.quality">
                     </div>
                     <div class="box">
                         <label for="">商品地址：</label>
-                        <input type="text" >
+                        <input type="text" v-model="changeData.address">
                     </div>
                     <div class="box">
                         <label for="">商品介绍：</label>
-                        <input type="text" >
+                        <input type="text" v-model="changeData.introduce">
                     </div>
                     <div class="box">
                         <label for="">快递费用：</label>
-                        <input type="text">
+                        <input type="text" v-model="changeData.deliver">
                     </div>
                     <div class="box">
                         <label for="">商品图片：</label>
-                        <input type="text">
+                        <input type="text" v-model="changeData.image">
                     </div>
                 </div>
                 <div class="changeFooter">
@@ -51,6 +51,9 @@
 
 <script>
 export default {
+    props:{
+        changeData:Object
+    },
     data () {
         return {
 

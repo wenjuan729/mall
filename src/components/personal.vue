@@ -1,6 +1,6 @@
 <template>
     <div class="personalWrapper">
-        <change-goods v-show="isChanging"  @change = 'change'></change-goods>
+        <change-goods v-show="isChanging"  @change = 'change' :changeData="changeData"></change-goods>
         <div class="personalBox">
             <div class="personalHeader">我的个人中心</div>
             <div class="personalContent">
@@ -75,7 +75,7 @@
                             width="100">
                             <template slot-scope="scope">
                                 <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
-                                <el-button @click="change" type="text" size="small">修改</el-button>
+                                <el-button @click="change(scope.$index)" type="text" size="small">修改</el-button>
                             </template>
                             </el-table-column>
                         </el-table>
@@ -96,16 +96,20 @@ export default {
     },
     methods: {
       handleClick(row) {
-        console.log(row);
+        console.log(row)
       },
-      change () {
-          this.isChanging = !this.isChanging;  
+      change (index) {
+          this.isChanging = !this.isChanging;
+          console.log(this.isChanging)
+          this.changeData = this.tableData[index];
+          console.log(this.changeData)
       }
     },
 
     data() {
       return {
         isChanging: false,
+        changeData:{},
         personalList:[{
             username:"1001",
             age:"18",
@@ -124,6 +128,18 @@ export default {
           ctime:"2019年1月1日",
           image:"0000"
         }, {
+          goodsId:"7",
+          category: '服装',
+          title: '毛衣',
+          price: '80',
+          quality: '8成新',
+          address: '北京',
+          introduce: "商品",
+          deliver:"8",
+          ctime:"2019年1月1日",
+          image:"0000"
+        }, {
+           goodsId:"3",
            category: '手机',
           title: 'iphone配件',
           price: '50',
@@ -134,16 +150,7 @@ export default {
           ctime:"2019年1月1日",
           image:"0000"
         }, {
-           category: '手机',
-          title: 'iphone配件',
-          price: '50',
-          quality: '8成新',
-          address: '北京',
-          introduce: "商品",
-          deliver:"8",
-          ctime:"2019年1月1日",
-          image:"0000"
-        }, {
+            goodsId:"4",
            category: '手机',
           title: 'iphone配件',
           price: '50',
