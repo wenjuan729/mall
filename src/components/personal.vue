@@ -1,6 +1,6 @@
 <template>
     <div class="personalWrapper">
-        <change-goods v-show="isChanging"  @change = 'change' :changeData="changeData"></change-goods>
+        <change-goods v-show="isChanging"  @changePersonal = 'changePersonal' :changeData="changeData"></change-goods>
         <div class="personalBox">
             <div class="personalHeader">我的个人中心</div>
             <div class="personalContent">
@@ -103,6 +103,10 @@ export default {
           console.log(this.isChanging)
           this.changeData = this.tableData[index];
           console.log(this.changeData)
+      },
+      changePersonal () {
+          this.isChanging = !this.isChanging;
+          console.log(this.isChanging)
       }
     },
 

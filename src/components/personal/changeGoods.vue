@@ -56,16 +56,16 @@ export default {
     },
     data () {
         return {
-
+            
         }
     },
     methods:{
         changeShow () {
-            this.$emit('change')
+            this.$emit('changePersonal')
         },
         submitInfo () {
             //提交修改的信息到数据库
-            this.$emit('change')
+            this.$emit('changePersonal')
         }
     }
 }
