@@ -4,6 +4,7 @@ var globalConfig = require("./config");
 
 var app = new express();
 
+app.get("/editRegister",loader.get("/editRegister"));
 // app.get("/login",loader.get("/login"));
 
 

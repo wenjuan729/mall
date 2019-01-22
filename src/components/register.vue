@@ -9,34 +9,34 @@
                     <div class="box">
                         用户名:
                         <div class="inputBox">
-                            <input type="text" placeholder="请输入用户名" class="username">
+                            <input type="text" placeholder="请输入4位数字的用户名" v-model="username">
                         </div> 
                     </div>
                     <div class="box">
                         您的密码：
                         <div class="inputBox">
-                            <input type="password" placeholder="请输入密码" class="password">
+                            <input type="password" placeholder="请输入密码" v-model="password">
                         </div>
                     </div>
                     <div class="box">
                         您的年龄：
                         <div class="inputBox">
-                            <input type="text" placeholder="请输入年龄" class="age">
+                            <input type="text" placeholder="请输入年龄" v-model="age">
                         </div>
                     </div>
                     <div class="box">
                         您的性别：
                         <div class="inputBox">
-                            <input type="text" placeholder="请输入年龄" class="gender">
+                            <input type="text" placeholder="请输入性别" v-model="gender">
                         </div>
                     </div>
                     <div class="box">
                         个性宣言：
                         <div class="inputBox">
-                            <input type="text" placeholder="请输入您的个性宣言" class="des">
+                            <input type="text" placeholder="请输入您的个性宣言" v-model="describe">
                         </div>
                     </div>
-                    <button text="submit" class="sub">
+                    <button text="submit" class="sub" @click="submitForm()">
                         提交注册
                     </button>    
                 </form> 
@@ -48,8 +48,26 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    
+    data () {
+        return {
+            username:'',
+            password:'',
+            age:'',
+            gender:'',
+            describe:''
+            
+        }
+    },
+    methods: {
+        submitForm () {
+            axios.get('/api/editRegister?username='+ this.username +'&password='+ this.password +'&age='+ this.age +'&gender='+ this.gender +'&describe='+ this.describe).then((res) => {
+                console.log(res)
+            })
+        }
+    }
 }
 </script>
 

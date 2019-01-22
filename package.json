@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.4.11",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
