@@ -8,11 +8,19 @@ var path = new Map();
 //注册账号
 function editRegister (request,response) {
     var params = url.parse(request.url,true).query;
-    registerDao.insertRegister(params.username, params.password,params.age,params.gender,params.describe,timeUtil.getNow(),function(result) {
-        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
-        response.write(respUtil.writeResult("success","添加成功",null));
-        response.end();
-    })
+    registerDao.queryLoginByUsername(params.username,function(result) {
+        if(JSON.stringify(result) !== '[]') {
+            response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+            response.write(respUtil.writeResult("error","用户名已被注册",null));
+            response.end();
+        }else{
+            registerDao.insertRegister(params.username, params.password,params.age,params.gender,params.describe,timeUtil.getNow(),function(result) {
+            response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+            response.write(respUtil.writeResult("success","注册成功",null));
+            response.end(); 
+            })
+        }    
+    })   
 }
 
 path.set("/editRegister",editRegister);

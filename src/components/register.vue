@@ -68,6 +68,9 @@ export default {
                 if(res.data.status == 'success') {
                     alert("注册成功！去登录");
                     this.$router.push({name:'login'})
+                }else{
+                    alert("用户名已被注册！去登录");
+                    this.$router.push({name:'login'})
                 }
             })
         }
