@@ -7,5 +7,7 @@ var app = new express();
 // app.get("/login",loader.get("/login"));
 
 
-app.listen(globalConfig["port"]);
+app.listen(globalConfig["port"],function () {
+    console.log("服务已启动");
+});
 

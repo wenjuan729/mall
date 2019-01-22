@@ -12,6 +12,7 @@
   "dependencies": {
     "element-ui": "^2.4.11",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
