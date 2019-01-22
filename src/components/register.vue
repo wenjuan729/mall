@@ -65,6 +65,10 @@ export default {
         submitForm () {
             axios.get('/api/editRegister?username='+ this.username +'&password='+ this.password +'&age='+ this.age +'&gender='+ this.gender +'&describe='+ this.describe).then((res) => {
                 console.log(res)
+                if(res.data.status == 'success') {
+                    alert("注册成功！去登录");
+                    this.$router.push({name:'login'})
+                }
             })
         }
     }

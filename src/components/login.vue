@@ -8,13 +8,13 @@
                 <form action="">
                     <div class="input_use">
                         用户名： 
-                        <input type="text" placeholder="请输入用户名" class="username">
+                        <input type="text" v-model="username" placeholder="请输入用户名" class="username">
                     </div>
                     <div class="input_pas">
                         密码：
-                        <input type="password" placeholder="请输入密码" class="password">
+                        <input type="password" v-model="password" placeholder="请输入密码" class="password">
                     </div>
-                    <button text="submit" class="sub">
+                    <button text="submit" class="sub" @click="submitLoginForm()">
                         登录
                     </button>    
                 </form>
@@ -25,7 +25,28 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+    data () {
+        return {
+            username:'',
+            password:''
+        }
+    },
+    methods:{
+        submitLoginForm () {
+            axios.get('api/login?username='+this.username+'&password='+this.password).then((res) => {
+                console.log(res)
+                if(res.data.status == 'success') {
+                    alert("登录成功");
+                    this.$router.push({name:'home'})
+                }else{
+                    alert("用户名或者密码不正确,请重新登陆")
+                    this.password = '';
+                }
+            })
+        }
+    }
     
 }
 </script>
