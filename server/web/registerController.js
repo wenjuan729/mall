@@ -1,6 +1,6 @@
 var registerDao = require("../dao/registerDao");
 var timeUtil = require('../util/TimeUtil');
-var respUtil = require("../util/RespUtil")
+var respUtil = require("../util/RespUtil");
 var url = require("url");
 
 var path = new Map();
@@ -28,7 +28,6 @@ path.set("/editRegister",editRegister);
 //登录接口
 function login (request,response) {
     var params = url.parse(request.url,true).query;
-    console.log(params)
     registerDao.queryLoginByUsername(params.username,function(result) {
         if(result && result.length > 0 && result[0].password == params.password) {
             //登录成功就写cookie,存入username和password

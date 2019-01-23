@@ -2,12 +2,18 @@ var express = require("express");
 var loader = require("./loader");
 var globalConfig = require("./config");
 var cookie = require("cookie-parser");
+var multer = require("multer");
 
 var app = new express();
+var uploadSingle = multer({dest:"./file/"});
+
+app.use(cookie());
 
 app.get("/editRegister",loader.get("/editRegister"));
 
 app.get("/login",loader.get("/login"));
+
+app.post("/uploadGoods",uploadSingle.single("file"),loader.get("/uploadGoods"));
 
 
 app.listen(globalConfig["port"],function () {

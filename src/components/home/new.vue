@@ -84,7 +84,6 @@ export default {
     },
     methods:{
         setStore (index) {
-            console.log(111)
             this.$store.commit('setVal',this.shopList[index]);
         }
     }

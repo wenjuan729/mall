@@ -26,7 +26,6 @@ function queryLoginByUsername(username,success) {
     connection.connect();
     connection.query(querySql,username,function(error,result) {
         if (error == null) {
-            console.log(result);
             success(result);
         } else {
             throw new Error(error);

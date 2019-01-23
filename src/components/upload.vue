@@ -22,36 +22,37 @@
                 </div>
                 <div class="uploadBox">
                     商品名称：
-                    <input type="text" placeholder="请输入商品名称">
+                    <input type="text" placeholder="请输入商品名称" v-model="title">
                 </div>
                 <div class="uploadBox">
                     商品价格：
-                    <input type="text" placeholder="请输入商品价格">
+                    <input type="text" placeholder="请输入商品价格" v-model="price">
                 </div>
                 <div class="uploadBox">
                     商品质量：
-                    <input type="text" placeholder="请输入商品质量">
+                    <input type="text" placeholder="请输入商品质量" v-model="quality">
                 </div>
                 <div class="uploadBox">
                     商品所在地址：
-                    <input type="text" placeholder="请输入商品所在地址">
+                    <input type="text" placeholder="请输入商品所在地址" v-model="address">
                 </div>
-                <div class="uploadBox">
-                    商品描述：
-                    <input type="text" placeholder="请输入商品介绍">
-                </div>
+                
                 <div class="uploadBox">
                     快递费用：
-                    <input type="text" placeholder="请输入快递费用">
+                    <input type="text" placeholder="请输入快递费用" v-model="deliver">
                 </div>
                 <div class="uploadImg">
                     商品图片:
-                    <p><input type="file" class="file"></p>
-                    <button class="imgBtn">点击上传文件</button>
+                    <input type="file" class="file" ref="file">
                     <img src="#" alt=""> 
-                </div>    
+                </div> 
+                <div class="introduceBox">
+                    <p>商品描述：</p>
+                    <textarea v-model="introduce" name="introduceText" id="introduce" cols="80" rows="10"></textarea>
+                </div>
+                   
             </div>
-            <div class="uploadSubmit">
+            <div class="uploadSubmit" @click="uploatShopInfo">
                 <button class="uploadBtn">点击上传商品信息</button>
             </div>
             
@@ -60,25 +61,52 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     data() {
       return {
+        title:'',
+        price:'',
+        quality:'',
+        address:'',
+        deliver:'',
+        introduce:'',
+        filesInfo:'',
         options: [{
-          value: '选项1',
+          value: '手机',
           label: '手机'
         }, {
-          value: '选项2',
+          value: '服装',
           label: '服装'
         }, {
-          value: '选项3',
+          value: '美妆',
           label: '美妆'
         }, {
-          value: '选项4',
+          value: '其它类',
           label: '其它类'
         }],
         value: ''
       }
     },
+    methods:{
+        uploatShopInfo () {
+            const form = new FormData();
+            const file = this.$refs.file.files[0];
+            form.append("file",file);
+            axios({
+                method:'post',
+                url:'api/uploadGoods?category='+ this.value +'&title='+ this.title +'&price='+ this.price +'&quality='+ this.quality +'&address='+ this.address+'&deliver='+ this.deliver +'&introduce='+ this.introduce,
+                anync:true,
+                contentType:false,
+                processData:false,
+                data:form
+            }).then(res => {
+                // console.log(res)
+                alert("上传成功");
+            })
+        }
+    }
 }
 </script>
 
@@ -123,12 +151,12 @@ export default {
             input 
                 width 250px
                 height 40px
-                border 1px solid #f0f0f0
+                border 1px solid #ccc
                 line-height 40px
                 font-size 16px
-                color #ccc
+                color #606266
             .uploadImg
-                height 150px
+                height 100px
                 font-size 18px
                 font-weight 500
                 color #444
@@ -143,6 +171,18 @@ export default {
                     background-color #409EFF
                     border 0px solid #fff
                     color #fff
+            .introduceBox
+                font-size 18px
+                font-weight 500
+                color #444
+                line-height 50px 
+                textarea
+                   font-size 18px
+                   font-weight 500
+                   line-height 16px 
+                   margin-left 85px
+                   margin-top -35px
+                   color #606266
         .uploadSubmit
             width 100%
             height 50px
@@ -150,7 +190,7 @@ export default {
             .uploadBtn
                 width 150px
                 height 40px
-                background-color #F56C6C
+                background-color #409EFF
                 border 0px solid #fff
                 color #fff   
 
