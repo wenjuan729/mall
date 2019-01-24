@@ -27,22 +27,22 @@
                                 fixed
                                 prop="category"
                                 label="商品类别"
-                                width="150">
+                                width="80">
                             </el-table-column>
                             <el-table-column
                                 prop="title"
                                 label="商品名称"
-                                width="150">
+                                width="160">
                             </el-table-column>
                             <el-table-column
                                 prop="price"
                                 label="商品价格"
-                                width="120">
+                                width="80">
                             </el-table-column>
                             <el-table-column
                                 prop="quality"
                                 label="商品质量"
-                                width="120">
+                                width="80">
                             </el-table-column>
                             <el-table-column
                                 prop="address"
@@ -57,11 +57,16 @@
                             <el-table-column
                                 prop="deliver"
                                 label="快递费用"
-                                width="120">
+                                width="80">
                             </el-table-column>
                             <el-table-column
                                 prop="ctime"
                                 label="上传时间"
+                                width="180">
+                            </el-table-column>
+                            <el-table-column
+                                prop="utime"
+                                label="最近修改时间"
                                 width="180">
                             </el-table-column>
                             <el-table-column
@@ -129,6 +134,8 @@ export default {
 <style lang='stylus' ref='stylesheet/stylus' scoped>
 @import '../assets/stylus/index.styl'
 .personalWrapper
+    min-Height 500px
+    padding-bottom 35px
     .personalHeader
         weidth 100%
         height 50px

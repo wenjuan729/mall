@@ -64,7 +64,7 @@ export default {
         submitInfo () {
             //提交修改的信息到数据库
             
-            axios.get('api/uploadGoodList?category='+ this.changeData.category +'&title='+ this.changeData.title +'&price='+ this.changeData.price +'&quality='+ this.changeData.quality +'&address='+ this.changeData.address +'&introduce='+ this.changeData.introduce +'&deliver='+ this.changeData.deliver +'&goods_id=' + this.changeData.goods_id).then(res => {
+            axios.get('api/updateGoodList?category='+ this.changeData.category +'&title='+ this.changeData.title +'&price='+ this.changeData.price +'&quality='+ this.changeData.quality +'&address='+ this.changeData.address +'&introduce='+ this.changeData.introduce +'&deliver='+ this.changeData.deliver +'&goods_id=' + this.changeData.goods_id).then(res => {
                 // console.log(res)
                 alert("商品信息修改成功");
             })

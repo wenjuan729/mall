@@ -29,6 +29,7 @@ export default {
     width 100%
     height 100%
     background-color #ffffcc
+    padding-bottom 35px
     .shop-nav
         width 1190px
         height 50px

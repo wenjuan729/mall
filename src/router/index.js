@@ -15,6 +15,7 @@ import Beauty from '@/components/home/beauty'
 import Other from '@/components/home/other'
 
 import ShopDetails from '@/components/shopDetails'
+import About from '@/components/about'
 
 Vue.use(Router)
 
@@ -75,6 +76,11 @@ export default new Router({
       path: '/shopDetails/:id',
       name: 'shopDetails',
       component: ShopDetails
+    },
+    {
+      path:'/about',
+      name:'about',
+      component:About
     }
     
   ]

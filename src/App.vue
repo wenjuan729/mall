@@ -15,18 +15,21 @@
       </div>
     </ul>
     <router-view />
-    <footer>关于</footer>
+    <div class="footer">
+      <h1>二手交易网-一个帮你省钱又赚钱的网站</h1>
+      <h2>每年帮助超过1000万用户卖出宝贝</h2>
+      <router-link  :to="{name:'about'}" tag="p" class="about">关于我们</router-link>
+    </div>
   </div>
 
 </template>
 
 <script>
-import Footer from './components/footer'
 
 export default {
   name: 'App',
   components:{
-  	Footer
+  	
   }
   // created() {
   //   axios.get("/api/login").then()
@@ -71,7 +74,25 @@ export default {
       font-size 20px
       &:hover 
         background-color #ffff99
-  
+  .footer
+    width 100%
+    height 150px
+    color #333
+    background-color #ffff99
+    h1
+      text-align center
+      padding-top 10px
+    h2
+      text-align center
+      margin-top 10px
+    .about
+      text-align center
+      color #333
+      text-decoration underline
+      cursor pointer
+      font-size 16px
+      margin-top 10px
+
       
       
       

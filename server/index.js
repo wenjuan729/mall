@@ -19,7 +19,7 @@ app.get("/queryLoginByUsername",loader.get("/queryLoginByUsername"));
 
 app.get("/queryGoodsByUsername",loader.get("/queryGoodsByUsername"));
 
-app.get("/uploadGoodList",loader.get("/uploadGoodList"))
+app.get("/updateGoodList",loader.get("/updateGoodList"))
 
 
 app.listen(globalConfig["port"],function () {

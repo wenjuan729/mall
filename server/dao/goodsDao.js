@@ -33,7 +33,7 @@ function queryGoodsByUsername (username,success) {
 }
 
 //更改商品信息
-function uploadGoodList (category,title,price,quality,address,deliver,introduce,utime,goodsId,success) {
+function updateGoodList (category,title,price,quality,address,deliver,introduce,utime,goodsId,success) {
     var uploadSql = "update goods set category= ?,title= ?,price= ?,quality= ?,address= ?,deliver= ?,introduce= ?,utime= ? where goods_id= ?;";
     var params = [category,title,price,quality,address,deliver,introduce,utime,goodsId];
 
@@ -51,5 +51,5 @@ function uploadGoodList (category,title,price,quality,address,deliver,introduce,
 
 module.exports = {"insertGoodsList":insertGoodsList,
                   "queryGoodsByUsername":queryGoodsByUsername,
-                  "uploadGoodList":uploadGoodList,
+                  "updateGoodList":updateGoodList,
                  };

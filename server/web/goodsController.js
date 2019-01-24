@@ -32,16 +32,16 @@ function queryGoodsByUsername (request,response) {
 path.set("/queryGoodsByUsername" ,queryGoodsByUsername);
 
 //更改商品信息
-function uploadGoodList (request,response) {
+function updateGoodList (request,response) {
     var params = url.parse(request.url,true).query;
     console.log(params);
-    goodsDao.uploadGoodList(params.category,params.title,params.price,params.quality,params.address,params.deliver,params.introduce,timeUtil.getNow(),params.goods_id,function (result) {
+    goodsDao.updateGoodList(params.category,params.title,params.price,params.quality,params.address,params.deliver,params.introduce,timeUtil.getNow(),params.goods_id,function (result) {
         response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
         response.write(respUtil.writeResult("success","商品信息修改成功",JSON.stringify(result)));
         response.end();
     })
 }
-path.set("/uploadGoodList" ,uploadGoodList);
+path.set("/updateGoodList" ,updateGoodList);
 
 
 module.exports.path = path;
