@@ -21,4 +21,14 @@ function uploadGoods(request,response) {
 
 path.set("/uploadGoods",uploadGoods);
 
+//个人中心页根据用户名查找上传的所有商品
+function queryGoodsByUsername (request,response) {
+    goodsDao.queryGoodsByUsername (request.cookies.username,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/queryGoodsByUsername" ,queryGoodsByUsername);
+
 module.exports.path = path;

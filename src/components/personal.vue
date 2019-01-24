@@ -7,13 +7,13 @@
                 <el-tabs type="border-card">
                     <el-tab-pane label="个人信息">
                         <div class="personalText">
-                            <p class="user">账号：{{personalList[0].username}}</p>
-                            <p class="personalGender">性别：{{personalList[0].gender}}</p>
-                            <p class="personalAge">年龄：{{personalList[0].age}}</p>
+                            <p class="user">账号：{{personalList.user_name}}</p>
+                            <p class="personalGender">性别：{{personalList.gender}}</p>
+                            <p class="personalAge">年龄：{{personalList.age}}</p>
                             <div class="personalDescribe">
                                 我的描述：
                                 <div class="describeText">
-                                    {{personalList[0].describe}}
+                                    {{personalList.describe}}
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <el-table-column
                                 prop="title"
                                 label="商品名称"
-                                width="120">
+                                width="150">
                             </el-table-column>
                             <el-table-column
                                 prop="price"
@@ -52,7 +52,7 @@
                             <el-table-column
                                 prop="introduce"
                                 label="商品描述"
-                                width="300">
+                                width="400">
                             </el-table-column>
                             <el-table-column
                                 prop="deliver"
@@ -62,11 +62,6 @@
                             <el-table-column
                                 prop="ctime"
                                 label="上传时间"
-                                width="120">
-                            </el-table-column>
-                            <el-table-column
-                                prop="image"
-                                label="商品图片"
                                 width="180">
                             </el-table-column>
                             <el-table-column
@@ -89,6 +84,7 @@
 
 <script>
 import ChangeGoods from "./personal/changeGoods"
+import axios from 'axios'
 
 export default {
     components:{
@@ -109,64 +105,24 @@ export default {
           console.log(this.isChanging)
       }
     },
-
     data() {
       return {
         isChanging: false,
         changeData:{},
-        personalList:[{
-            username:"1001",
-            age:"18",
-            gender:"女",
-            describe:"微笑，是一个人身上最好看的东西。"
-        }],
-        tableData: [{
-          goodsId:"1",
-          category: '手机',
-          title: 'iphone配件',
-          price: '50',
-          quality: '8成新',
-          address: '北京',
-          introduce: "商品",
-          deliver:"8",
-          ctime:"2019年1月1日",
-          image:"0000"
-        }, {
-          goodsId:"7",
-          category: '服装',
-          title: '毛衣',
-          price: '80',
-          quality: '8成新',
-          address: '北京',
-          introduce: "商品",
-          deliver:"8",
-          ctime:"2019年1月1日",
-          image:"0000"
-        }, {
-           goodsId:"3",
-           category: '手机',
-          title: 'iphone配件',
-          price: '50',
-          quality: '8成新',
-          address: '北京',
-          introduce: "商品",
-          deliver:"8",
-          ctime:"2019年1月1日",
-          image:"0000"
-        }, {
-            goodsId:"4",
-           category: '手机',
-          title: 'iphone配件',
-          price: '50',
-          quality: '8成新',
-          address: '北京',
-          introduce: "商品",
-          deliver:"8",
-          ctime:"2019年1月1日",
-          image:"0000"
-        }]
+        personalList:{},
+        tableData: [{}]
       }
-    }
+    },
+    created () {
+        axios.get('api/queryLoginByUsername').then(res => {
+            // console.log(res)
+            var personal = JSON.parse(res.data.data);
+            this.personalList = personal[0];
+        })
+        axios.get('api/queryGoodsByUsername').then(res => {
+            this.tableData = res.data;
+        })
+    },
 }
 </script>
 

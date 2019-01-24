@@ -15,6 +15,10 @@ app.get("/login",loader.get("/login"));
 
 app.post("/uploadGoods",uploadSingle.single("file"),loader.get("/uploadGoods"));
 
+app.get("/queryLoginByUsername",loader.get("/queryLoginByUsername"));
+
+app.get("/queryGoodsByUsername",loader.get("/queryGoodsByUsername"));
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

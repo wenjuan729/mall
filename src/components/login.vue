@@ -36,7 +36,6 @@ export default {
     methods:{
         submitLoginForm () {
             axios.get('api/login?username='+this.username+'&password='+this.password).then((res) => {
-                console.log(res)
                 if(res.data.status == 'success') {
                     alert("登录成功");
                     this.$router.push({name:'home'})

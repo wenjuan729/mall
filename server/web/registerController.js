@@ -47,4 +47,14 @@ function login (request,response) {
 
 path.set("/login" ,login);
 
+//个人中心页根据用户名查询个人信息
+function queryLoginByUsername (request,response) {
+    registerDao.queryLoginByUsername(request.cookies.username,function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","查询个人信息成功",JSON.stringify(result)));
+        response.end();
+    })
+}
+path.set("/queryLoginByUsername" ,queryLoginByUsername);
+
 module.exports.path = path;
