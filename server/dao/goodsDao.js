@@ -32,5 +32,24 @@ function queryGoodsByUsername (username,success) {
     connection.end();
 }
 
+//更改商品信息
+function uploadGoodList (category,title,price,quality,address,deliver,introduce,utime,goodsId,success) {
+    var uploadSql = "update goods set category= ?,title= ?,price= ?,quality= ?,address= ?,deliver= ?,introduce= ?,utime= ? where goods_id= ?;";
+    var params = [category,title,price,quality,address,deliver,introduce,utime,goodsId];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(uploadSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports = {"insertGoodsList":insertGoodsList,
-                  "queryGoodsByUsername":queryGoodsByUsername };
+                  "queryGoodsByUsername":queryGoodsByUsername,
+                  "uploadGoodList":uploadGoodList,
+                 };
