@@ -21,6 +21,10 @@ app.get("/queryGoodsByUsername",loader.get("/queryGoodsByUsername"));
 
 app.get("/updateGoodList",loader.get("/updateGoodList"))
 
+app.get("/getAllGoods",loader.get("/getAllGoods"))
+
+app.get("/getPic",loader.get("/getPic"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

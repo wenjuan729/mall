@@ -2,7 +2,7 @@
     <div class="detail">
         <div class="detailMain">
             <div class="shopimgWrapper">
-                <img class="shopImg" :src="shopdetailList.image" >
+                <img class="shopImg" :src="'api/getPic?path='+ shopdetailList.file_path" >
             </div>
             <div class="shopSelect">
                 <div class="shopSelectHeader">
@@ -69,7 +69,9 @@ export default {
     },
     computed:{
         shopdetailList () {
+            // console.log(this.$store.state.shopdetailList)
             return this.$store.state.shopdetailList;
+            
         }
         // ...mapState('[shopdetailList]')
     }

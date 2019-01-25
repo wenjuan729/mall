@@ -49,7 +49,23 @@ function updateGoodList (category,title,price,quality,address,deliver,introduce,
     connection.end();
 }
 
+//new.vue查询最新的商品信息
+function getAllGoods (success) {
+    var querySql = "select * from goods order by goods_id desc;";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
 module.exports = {"insertGoodsList":insertGoodsList,
                   "queryGoodsByUsername":queryGoodsByUsername,
                   "updateGoodList":updateGoodList,
+                  "getAllGoods":getAllGoods,
                  };

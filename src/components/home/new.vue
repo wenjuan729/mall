@@ -4,11 +4,11 @@
             <router-link v-for="(item, index) in shopList" 
                         :key="index" 
                         class="newBody" 
-                        :to="{name: 'shopDetails', params: {id: item.goodsId}}" 
+                        :to="{name: 'shopDetails', params: {id: item.goods_id}}" 
                         tag="li"
                         >
                 <div @click="setStore(index)">
-                    <img :src="item.image" class="image">
+                    <img :src="'api/getPic?path='+ item.file_path" class="image">
                     <p class="title" :title="item.title">{{item.title}}</p>
                     <p class="priceBox">
                     <span class="priceText">二手价</span>
@@ -16,7 +16,7 @@
                     </p>
                     <div class="underline"></div>
                     <div class="newBodyFooter">
-                        <span class="username">{{item.username}}</span>
+                        <span class="username">{{item.user_name}}</span>
                         <span class="address">{{item.address}}</span>
                     </div>  
                 </div>
@@ -27,66 +27,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     data () {
         return {
-            shopList:[{
-                goodsId:1,
-                image:"http://img.alicdn.com/bao/uploaded/i2/O1CN01U95Jze1KWofuLDWSE_!!0-fleamarket.jpg",
-                title:"iphone配件",
-                price:"50",
-                quality:"8成新",
-                username:"1001",
-                address:"北京",
-                deliver:"8"
-            },
-            {
-                goodsId:2,
-                image:"http://img.alicdn.com/bao/uploaded/i4/2387753754/TB2qA8ShgDD8KJjy0FdXXcjvXXa_!!2387753754.jpg",
-                title:"[南大人]秋冬款长裙",
-                price:"80",
-                quality:"全新",
-                username:"1002",
-                address:"山东",
-                deliver:"0" 
-            },
-            {
-                goodsId:3,
-                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
-                title:"露华浓粉底液",
-                price:"25",
-                quality:"8成新",
-                username:"1003",
-                address:"哈尔滨",
-                deliver:"12"
-            },
-            {
-                goodsId:4,
-                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
-                title:"露华浓粉底液",
-                price:"25",
-                quality:"8成新",
-                username:"1003",
-                address:"哈尔滨",
-                deliver:"12"
-            },
-            {
-                goodsId:5,
-                image:"http://img.alicdn.com/bao/uploaded/i1/O1CN016JqL7U1TLfZwyfOBy_!!0-fleamarket.jpg",
-                title:"露华浓粉底液",
-                price:"25",
-                quality:"8成新",
-                username:"1003",
-                address:"哈尔滨",
-                deliver:"12"
-            }]
+            shopList:[]
         }
     },
     methods:{
         setStore (index) {
             this.$store.commit('setVal',this.shopList[index]);
         }
-    }
+    },
+    created () {
+        axios.get('api/getAllGoods').then(res => {
+            // console.log(res.data)
+            this.shopList = res.data
+
+        })
+        
+    },
 }
 </script>
 

@@ -1,6 +1,7 @@
 var goodsDao = require('../dao/goodsDao');
 var timeUtil = require('../util/TimeUtil');
 var respUtil = require("../util/RespUtil");
+var fs = require("fs");
 var url = require("url");
 
 var path = new Map();
@@ -43,5 +44,33 @@ function updateGoodList (request,response) {
 }
 path.set("/updateGoodList" ,updateGoodList);
 
+//查询最新的商品信息
+function getAllGoods (request,response) {
+    goodsDao.getAllGoods(function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getAllGoods" ,getAllGoods);
+
+//获取商品图片
+function getPic(request,response) {
+    var params = url.parse(request.url,true).query;
+    // console.log(params);
+    try{
+        var data = fs.readFileSync("./" + params.path);
+        response.writeHead(200);
+        response.write(data);
+        response.end();
+    }catch(e) {
+        response.writeHead(404);
+        response.end();
+    }
+    
+
+}
+
+path.set("/getPic",getPic);
 
 module.exports.path = path;
