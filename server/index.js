@@ -21,9 +21,11 @@ app.get("/queryGoodsByUsername",loader.get("/queryGoodsByUsername"));
 
 app.get("/updateGoodList",loader.get("/updateGoodList"))
 
-app.get("/getAllGoods",loader.get("/getAllGoods"))
+app.get("/getAllGoodsByPage",loader.get("/getAllGoodsByPage"))
 
 app.get("/getPic",loader.get("/getPic"))
+
+app.get("/getAllGoodsCount",loader.get("/getAllGoodsCount"))
 
 
 app.listen(globalConfig["port"],function () {

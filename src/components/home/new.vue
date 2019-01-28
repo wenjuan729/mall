@@ -23,6 +23,16 @@
                 
             </router-link>
         </ul>
+        <div class="page-tool">
+            <el-pagination
+                class="pagination"
+                @current-change="handleCurrentChange"
+                background
+                layout="prev, pager, next"
+                :page-size='pageSize'
+                :total='totalCount'>
+                </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -32,21 +42,34 @@ import axios from 'axios'
 export default {
     data () {
         return {
-            shopList:[]
+            shopList:[],
+            pageSize:12,
+            currentPage:1,
+            totalCount:100,
         }
     },
     methods:{
         setStore (index) {
             this.$store.commit('setVal',this.shopList[index]);
-        }
-    },
-    created () {
-        axios.get('api/getAllGoods').then(res => {
+        },
+        getGoods () {
+            axios.get('api/getAllGoodsByPage?pageSize='+ this.pageSize +'&currentPage='+ (this.currentPage-1)).then(res => {
             // console.log(res.data)
             this.shopList = res.data
-
-        })
-        
+            });
+            axios.get('api/getAllGoodsCount').then(res => {
+                // console.log(res)
+                this.totalCount = res.data[0].count;
+                // console.log(this.totalCount)
+            })
+        },
+        handleCurrentChange(val) {
+            this.currentPage = val;
+            this.getGoods(this.currentPage,this.pageSize)
+        },
+    },
+    created () {
+        this.getGoods(this.currentPage,this.pageSize)    
     },
 }
 </script>
@@ -113,6 +136,14 @@ export default {
                 .address
                     position absolute
                     right 15px
+    .page-tool
+        width 100%
+        height 30px
+        .pagination
+            width 100%
+            height 100%
+            margin 30px auto
+            text-align center
                     
 
 

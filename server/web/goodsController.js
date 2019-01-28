@@ -15,9 +15,7 @@ function uploadGoods(request,response) {
         response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
         response.write(respUtil.writeResult("success","商品信息上传成功",null));
         response.end();
-    })
-
-   
+    })  
 }
 
 path.set("/uploadGoods",uploadGoods);
@@ -44,15 +42,26 @@ function updateGoodList (request,response) {
 }
 path.set("/updateGoodList" ,updateGoodList);
 
-//查询最新的商品信息
-function getAllGoods (request,response) {
-    goodsDao.getAllGoods(function(result) {
+//通过当前页查询最新的商品信息
+function getAllGoodsByPage (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.getAllGoodsByPage(parseInt(params.currentPage),parseInt(params.pageSize),function(result) {
         response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
         response.write(JSON.stringify(result));
         response.end();
     })
 }
-path.set("/getAllGoods" ,getAllGoods);
+path.set("/getAllGoodsByPage" ,getAllGoodsByPage);
+
+//获取当前商品总数
+function getAllGoodsCount (request,response) {
+    goodsDao.getAllGoodsCount(function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    });
+}
+path.set("/getAllGoodsCount" ,getAllGoodsCount);
 
 //获取商品图片
 function getPic(request,response) {
