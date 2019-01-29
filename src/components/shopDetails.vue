@@ -1,20 +1,18 @@
 <template>
     <div class="detail">
         <div class="detailHeader">
-            <ul>
-                <li>
-                    用户名：
-                    <p class="username">{{shopdetailList.user_name}}</p>
-                </li>
-                <li>
+                <div class="username">
+                    卖家ID：{{shopdetailList.user_name}}
+                </div>
+                <div class=timeBox>
                     最近编辑：
                      <p class="time">{{shopdetailList.ctime}}</p>
-                </li>
-                <li>
+                </div>
+                <div class=viewsBox>
                     宝贝浏览次数：
-                    <p class="views">{{shopdetailList.views}}</p>
-                </li>
-            </ul>   
+                    <p class="views">{{shopdetailList.views}}次</p>
+                </div>
+                <div class="report">举报该宝贝</div>
         </div>
         <div class="detailMain">
             <div class="shopimgWrapper">
@@ -24,21 +22,25 @@
                 <div class="shopSelectHeader">
                     <h2 class="shopTitle">{{shopdetailList.title}}</h2>
                     <p class="shopPriceWrapper">
-                        <span class="priceText">特 卖 价：</span>
+                        <span class="priceText">特 卖 价 :</span>
                         <span class="shopPrice">￥{{shopdetailList.price}}</span>
                     </p>
                 </div>
                 <div class="shopSelectContent">
                     <p class="qualityWrapper">
-                        <span class="qualityText">成 色：</span>
+                        <span class="qualityText">成 色 :</span>
                         <span class="quality">{{shopdetailList.quality}}</span>
                     </p>
                     <p class="adderssWrapper">
-                        <span class="adderssText">所 在 地：</span>
+                        <span class="adderssText">所 在 地 :</span>
                         <span class="address">{{shopdetailList.address}}</span>
                     </p>
+                    <p class="modeWrapper">
+                        <span class="modeText">交易方式 :</span>
+                        <span class="mode">在线交易</span>
+                    </p>
                     <p class="deliverWrapper">
-                        <span class="deliverText">快 递：</span>
+                        <span class="deliverText">快 递 ：</span>
                         <span class="deliver" v-if="shopdetailList.deliver > 0">￥{{shopdetailList.deliver}}</span>
                         <span class="deliver" v-else>包邮</span>
                     </p>
@@ -47,23 +49,37 @@
                     <p>
                         <el-button type="warning" class="purchase">立即购买</el-button>
                     </p>
-                    <p>
-                      <el-button type="primary" class="jion">加入购物车</el-button>  
-                    </p>
-                    <p>
-                        <el-badge :value="12" class="item">
-                            <el-button size="small">浏览次数</el-button>
-                        </el-badge>
-                    </p>
                 </div>
-                
+                <div class="transaction">
+                    <div class="dbjy">
+                        <div class="dbjyImg"></div>
+                        <div class="dbjyTitle">担保交易</div>
+                        <div class="dbjyText"> 由支付宝先行保管,验货OK再付款到卖家账户。</div>
+                    </div>
+                    <div class="smrz">
+                        <div class="smrzImg"></div>
+                        <div class="smrzTitle">实名认证</div>
+                        <div class="smrzText">经支付宝核实会员身份和银行账户信息,真实可靠。</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="shopIntroduce">
-            宝贝介绍
-        </div>
-        <div class="message">
-            宝贝留言
+        <div class="detailFooter">
+            <el-tabs type="card" v-model="activeName2">
+                <el-tab-pane label="宝贝介绍" name="first">
+                    <div class="shopIntroduce">
+                        宝贝介绍
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="留言" name="second">
+                    <div class="message">
+                        宝贝留言
+                     </div>
+                </el-tab-pane>
+                <el-tab-pane label="安全保障" name="third">
+                    安全保障
+                </el-tab-pane>
+            </el-tabs>
         </div>
     </div>
 </template>
@@ -72,15 +88,11 @@
 import {mapState} from 'vuex'
 export default {
     created () {
-        // const goodsId = this.$route.params.id;
-        // const index = this.shopList.findIndex( item => item.goodsId == goodsId );//寻找数组中第一个符合条件的值
-        // console.log(goodsId)
-        // console.log(index)
-        // //这时候就可以动态请求数据了，现在先用假数据模拟
+
     },
     data () {
         return {
-            
+            activeName2: 'first'
         }
     },
     computed:{
@@ -101,6 +113,51 @@ export default {
     margin 0 auto
     border-left 1px solid #f0f0f0
     border-right 1px solid #f0f0f0
+    .detailHeader
+        position relative
+        width 100%
+        height 70px
+        border 1px solid #ccc
+        border-radius 5px
+        margin-top 10px
+        border-top 2px solid #000
+        .username
+            position absolute
+            top 10px
+            left 15px
+            width 130px
+            color #999
+            line-height 45px
+            border-right 1px solid #ccc
+        .timeBox
+            position absolute
+            top 10px
+            left 147px
+            width 210px
+            border-right 1px solid #ccc
+            text-align center
+            color #999
+            font-size 14px
+            .time
+                color #333
+        .viewsBox
+            position absolute
+            top 10px
+            left 375px
+            text-align center
+            color #999
+            font-size 14px
+            .views
+                color #333
+        .report
+            position absolute
+            top 10px
+            right 15px
+            font-size 14px
+            color #333
+            cursor pointer
+            &:hover
+                text-decoration underline
     .detailMain
         position relative
         width 1190px
@@ -160,6 +217,22 @@ export default {
                     span
                         font-size 18px
                         color #333
+                .modeWrapper
+                    width 100%
+                    height 30px
+                    line-height 30px
+                    margin-top 10px
+                    .modeText 
+                        font-size 18px
+                        color #333
+                    .mode
+                        width 30px
+                        height 20px
+                        border 1px solid #ccc
+                        padding 5px
+                        cursor pointer
+                        &:hover
+                            border 1px solid #f40
                 .deliverWrapper
                     width 100%
                     height 30px
@@ -174,8 +247,8 @@ export default {
                         height 25px
                         font-size 18px
                         color #333
-                        background-color #cfcfcf
-                        border 1px solid #000
+                        background-color #f1f1f1
+                        border 1px solid #ccc
                         text-align center
                         line-height 25px
             .shopFooter
@@ -192,9 +265,87 @@ export default {
                         width 200px
                         height 45px
                         font-size 20px
+            .transaction
+                width 100%
+                height 150px
+                margin-top 35px
+                border 1px solid #ccc
+                .dbjy
+                    position relative
+                    width 100%
+                    height 75px
+                    border-bottom 1px solid #ccc
+                    .dbjyImg
+                        display inline-block
+                        width 45px
+                        height 40px
+                        background-image url(../assets/img/dbjy.png)
+                        background-repeat no-repeat
+                        margin-top 15px
+                        margin-left 10px
+                    .dbjyTitle
+                        position absolute
+                        top 22px
+                        left 65px
+                        display inline-block
+                        width 75px
+                        color #333
+                        font-weight 600
+                    .dbjyText
+                        position absolute
+                        top 24px
+                        left 140px
+                        display inline-block
+                        font-size 12px
+                        color #666
+                .smrz
+                    position relative
+                    width 100%
+                    height 75px
+                    .smrzImg
+                        display inline-block
+                        width 45px
+                        height 40px
+                        background-image url(../assets/img/smrz.png)
+                        background-repeat no-repeat
+                        margin-top 25px
+                        margin-left 10px
+                    .smrzTitle
+                        position absolute
+                        top 27px
+                        left 65px
+                        display inline-block
+                        width 75px
+                        color #333
+                        font-weight 600
+                    .smrzText
+                        position absolute
+                        top 28px
+                        left 140px
+                        display inline-block
+                        font-size 12px
+                        color #666
+
+                
                     
                         
 
             
 </style>
+
+<style lang='stylus' ref='stylesheet/stylus'>
+.el-tabs--card>.el-tabs__header
+    border-bottom 5px solid #ffda44 !important
+.el-tabs--card>.el-tabs__header .el-tabs__item.is-active
+    background-color #ffda44 !important
+    color #fff
+    font-weight 700
+    font-size 18px
+.el-tabs__item
+    color #333
+    font-weight 700
+    font-size 18px
+</style>
+
+
 
