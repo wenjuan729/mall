@@ -50,6 +50,8 @@ export default {
     },
     methods:{
         setStore (index) {
+            // console.log(this.shopList[index].goods_id)
+            axios.get('api/updateViews?goods_id='+ this.shopList[index].goods_id +'&view='+ this.shopList[index].views)
             this.$store.commit('setVal',this.shopList[index]);
         },
         getGoods () {

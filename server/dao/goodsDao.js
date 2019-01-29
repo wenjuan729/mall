@@ -80,9 +80,27 @@ function getAllGoodsCount (success) {
     connection.end();
 }
 
+//更改商品浏览次数
+function updateViews (view,goodsId,success) {
+    var views = ++ view;
+    var updateSql = "update goods set views= ? where goods_id= ?;";
+    var params = [views,goodsId];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(updateSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports = {"insertGoodsList":insertGoodsList,
                   "queryGoodsByUsername":queryGoodsByUsername,
                   "updateGoodList":updateGoodList,
                   "getAllGoodsByPage":getAllGoodsByPage,
-                  "getAllGoodsCount":getAllGoodsCount
+                  "getAllGoodsCount":getAllGoodsCount,
+                  "updateViews":updateViews
                  };

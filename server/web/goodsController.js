@@ -76,10 +76,18 @@ function getPic(request,response) {
         response.writeHead(404);
         response.end();
     }
-    
-
 }
-
 path.set("/getPic",getPic);
+
+//更改商品浏览次数
+function updateViews(request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.updateViews(params.view,params.goods_id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/updateViews",updateViews);
 
 module.exports.path = path;

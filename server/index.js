@@ -27,6 +27,8 @@ app.get("/getPic",loader.get("/getPic"))
 
 app.get("/getAllGoodsCount",loader.get("/getAllGoodsCount"))
 
+app.get("/updateViews",loader.get("/updateViews"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

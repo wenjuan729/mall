@@ -1,5 +1,21 @@
 <template>
     <div class="detail">
+        <div class="detailHeader">
+            <ul>
+                <li>
+                    用户名：
+                    <p class="username">{{shopdetailList.user_name}}</p>
+                </li>
+                <li>
+                    最近编辑：
+                     <p class="time">{{shopdetailList.ctime}}</p>
+                </li>
+                <li>
+                    宝贝浏览次数：
+                    <p class="views">{{shopdetailList.views}}</p>
+                </li>
+            </ul>   
+        </div>
         <div class="detailMain">
             <div class="shopimgWrapper">
                 <img class="shopImg" :src="'api/getPic?path='+ shopdetailList.file_path" >
