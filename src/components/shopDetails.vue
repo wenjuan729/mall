@@ -68,13 +68,45 @@
             <el-tabs type="card" v-model="activeName2">
                 <el-tab-pane label="宝贝介绍" name="first">
                     <div class="shopIntroduce">
-                        宝贝介绍
+                        <p class="anquan">如遇到以下情况可能是诈骗行为：
+                            <span>1.宝贝价格异常低；</span>
+                            <span>2.卖家要求QQ沟通；</span>
+                            <span> 3.卖家要求直接汇款。</span>
+                            <a href="#">寻求防骗经验。</a>
+                        </p>
+                        <p class="shopInt">宝贝介绍</p>
+                        <div class="IntContent">
+                            <h2>{{shopdetailList.title}}</h2>    
+                            <p>宝 贝 成 色 ：{{shopdetailList.quality}}</p>
+                            <p>二 手 价 ：{{shopdetailList.price}}</p>
+                            <p class="IncDetail">{{shopdetailList.introduce}}</p>
+                        </div>
+                        
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="留言" name="second">
                     <div class="message">
-                        宝贝留言
-                     </div>
+                        <p class="messageTitle">我要留言</p>
+                        <div class="writeComment">
+                            <div class="usernameBox">
+                                <span> 用户名:
+                                    <p>{{this.$store.state.username}}</p>    
+                                </span>
+                            </div>
+                            <textarea name="comment" id="commentText" cols="74" rows="5" placeholder="我来说两句..."></textarea>
+                            <el-button class="commentBtn" type="primary" plain>提交留言</el-button>
+                        </div>
+                    </div>
+                    <div class="commentList" v-for="(item, index) in commentList" :key="index">
+                        <div class="commentBox">
+                            <div class="commentUser">{{item.user_name}} :</div>
+                            <div class="comment">{{item.content}}</div>
+                        </div>
+                        <div class="commentFooter">
+                            <div class="commentTime">{{item.ctime}}</div>
+                            <button class="commentDelete">删除</button>
+                        </div>
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="安全保障" name="third">
                     安全保障
@@ -92,7 +124,22 @@ export default {
     },
     data () {
         return {
-            activeName2: 'first'
+            activeName2: 'first',
+            commentList:[{
+                user_name:'1001',
+                content:'宝贝很好呀',
+                ctime:'2019-01-30 16:00:49',
+            },
+            {
+                 user_name:'1001',
+                content:'宝贝很好呀',
+                ctime:'2019-01-30 16:00:49',
+            },
+            {
+                 user_name:'1001',
+                content:'宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀',
+                ctime:'2019-01-30 16:00:49',
+            }]
         }
     },
     computed:{
@@ -325,6 +372,129 @@ export default {
                         display inline-block
                         font-size 12px
                         color #666
+    .detailFooter
+        width 100%
+        margin-bottom 20px
+        .shopIntroduce
+            margin 10px auto
+            width 950px
+            .anquan
+                width 100%
+                height 30px
+                font-size 14px
+                color #333
+                span 
+                    color #f60
+                a
+                    text-decoration none
+                    color #000
+                    font-weight 600
+                    &:hover
+                        text-decoration underline
+            .shopInt
+                width 100%
+                font-size 20px
+                color #333
+                font-weight 700
+            .IntContent
+                width 100%
+                p
+                    font-size 18px
+                    margin-top 10px
+                    color #000
+                h2
+                    font-weight 500
+                    margin-top 10px
+                .IncDetail
+                    color rgb(0, 0, 255)
+        .message
+            margin 10px auto
+            width 950px
+            .messageTitle
+                width 100%
+                height 30px
+                font-size 20px
+                color #333
+                font-weight 600
+                line-height 30px
+            .writeComment
+                position relative
+                width 100%
+                height 200px
+                background-color #FFE1FF
+                margin-top 10px
+                .usernameBox
+                    position absolute
+                    top 35px
+                    left 15px
+                    display inline-block
+                    width 100px
+                    height 100px
+                    background-color #FFBBFF
+                    border-radius 50%
+                    span 
+                        display inline-block
+                        width 100%
+                        height 100%
+                        text-align center
+                        margin-top 30px
+                        color #F56C6C
+                #commentText
+                    position absolute
+                    top 35px
+                    left 135px
+                    font-size 20px
+                    color #333
+                .commentBtn
+                    position absolute
+                    bottom 5px
+                    right 30px
+                    width 100px
+                    height 35px
+        .commentList
+            position relative
+            margin 20px auto
+            width 950px
+            height 120px
+            border-top 1px solid #ccc
+            border-bottom 1px solid #ccc
+            background-color #F5FFFA
+            .commentBox
+                width 100%
+                height 90px
+                .commentUser
+                    display inline-block
+                    margin 15px 15px 5px 15px
+                    cursor pointer
+                    font-size 20px
+                    color #39a6b1
+                    font-weight 500
+                    &:hover
+                        color #f40
+                        text-decoration underline
+                .comment
+                    display inline-block
+                    position absolute
+                    top 15px
+                    width 800px
+                    height 100%
+                    font-size 18px
+                    color #333
+            .commentFooter
+                width 100%
+                .commentTime
+                    display inline-block
+                    margin-left 15px
+                    color #ccc
+                .commentDelete
+                    position absolute
+                    right 20px
+                    width 80px
+                    height 25px
+                    cursor pointer
+
+
+                    
 
                 
                     

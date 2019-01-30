@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state:{
-        shopdetailList:''
+        shopdetailList:'',
+        username:'',
     },
     mutations:{
         setVal(state,shopListval) {
             state.shopdetailList = shopListval;
+        },
+        setUserName(state,val) {
+            state.username = val;
         }
     },
     actions:{

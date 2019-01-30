@@ -36,8 +36,10 @@ export default {
     methods:{
         submitLoginForm () {
             axios.get('api/login?username='+this.username+'&password='+this.password).then((res) => {
+                console.log(res)
                 if(res.data.status == 'success') {
                     alert("登录成功");
+                    this.$store.commit('setUserName',this.username);
                     this.$router.push({name:'home'})
                 }else{
                     alert("用户名或者密码不正确,请重新登陆")

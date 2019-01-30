@@ -6,7 +6,7 @@
             </div>
             <div class="uploadUsername">
                 用户名：
-                <span>1001</span>
+                <span>{{this.$store.state.username}}</span>
             </div>
             <div class="uploadText">
                 <div class="uploadCategory">
