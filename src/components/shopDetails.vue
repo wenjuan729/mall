@@ -93,8 +93,8 @@
                                     <p>{{this.$store.state.username}}</p>    
                                 </span>
                             </div>
-                            <textarea name="comment" id="commentText" cols="74" rows="5" placeholder="我来说两句..."></textarea>
-                            <el-button class="commentBtn" type="primary" plain>提交留言</el-button>
+                            <textarea v-model="commentsContent" name="comment" id="commentText" cols="74" rows="5" placeholder="我来说两句..."></textarea>
+                            <el-button @click="insertComments" class="commentBtn" type="primary" plain>提交留言</el-button>
                         </div>
                     </div>
                     <div class="commentList" v-for="(item, index) in commentList" :key="index">
@@ -118,12 +118,14 @@
 
 <script>
 import {mapState} from 'vuex'
+import axios from 'axios'
 export default {
     created () {
 
     },
     data () {
         return {
+            commentsContent:'',
             activeName2: 'first',
             commentList:[{
                 user_name:'1001',
@@ -149,6 +151,18 @@ export default {
             
         }
         // ...mapState('[shopdetailList]')
+    },
+    methods:{
+        insertComments () {
+            axios.get('/api/insertComments?user_name='+ this.$store.state.username +'&content='+ this.commentsContent + '&goods_id='+ this.shopdetailList.goods_id).then( res => {
+                // console.log(res)
+                if(res.data.status == 'success') {
+                    alert("留言成功");
+                }else{
+                    alert("留言失败，请重新输入留言内容");
+                }
+            })
+        }
     }
 }
 </script>
