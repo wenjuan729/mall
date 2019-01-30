@@ -19,6 +19,33 @@ function insertComments(request,response) {
 
 path.set("/insertComments",insertComments);
 
+//根据goodsId查询留言
+function getComments (request,response) {
+    var params = url.parse(request.url,true).query;
+    commentDao.getComments (params.goods_id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getComments" ,getComments);
+
+//点击一次，赞的数目+1
+function addZan(request,response) {
+    var params = url.parse(request.url,true).query;
+    console.log(params)
+    commentDao.addZan(params.zan,params.id,function (result) {
+        if(result) {
+            commentDao.getCommentsById(params.id,function(result) {
+                response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+                response.write(JSON.stringify(result));
+                response.end();
+            })
+        }
+    })
+}
+path.set("/addZan",addZan);
+
 
 
 module.exports.path = path;

@@ -104,6 +104,10 @@
                         </div>
                         <div class="commentFooter">
                             <div class="commentTime">{{item.ctime}}</div>
+                            <div class="zan">
+                                <img src="../assets/img/zan.png" alt="" @click="addZan(index)">
+                                <span>点赞数({{item.zan}}）</span>
+                            </div>
                             <button class="commentDelete">删除</button>
                         </div>
                     </div>
@@ -121,27 +125,16 @@ import {mapState} from 'vuex'
 import axios from 'axios'
 export default {
     created () {
-
+        axios.get('api/getComments?goods_id='+ this.shopdetailList.goods_id).then( res => {
+            // console.log(res);
+            this.commentList = res.data;
+        })
     },
     data () {
         return {
             commentsContent:'',
             activeName2: 'first',
-            commentList:[{
-                user_name:'1001',
-                content:'宝贝很好呀',
-                ctime:'2019-01-30 16:00:49',
-            },
-            {
-                 user_name:'1001',
-                content:'宝贝很好呀',
-                ctime:'2019-01-30 16:00:49',
-            },
-            {
-                 user_name:'1001',
-                content:'宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀宝贝很好呀',
-                ctime:'2019-01-30 16:00:49',
-            }]
+            commentList:''
         }
     },
     computed:{
@@ -158,9 +151,18 @@ export default {
                 // console.log(res)
                 if(res.data.status == 'success') {
                     alert("留言成功");
+                    axios.get('api/getComments?goods_id='+ this.shopdetailList.goods_id).then( res => {
+                            this.commentList = res.data;
+                    })
                 }else{
                     alert("留言失败，请重新输入留言内容");
                 }
+            })
+        },
+        addZan (index) {
+            axios.get('/api/addZan?id='+ this.commentList[index].id +'&zan='+ this.commentList[index].zan).then(res => {
+                // console.log(res)
+                this.commentList[index].zan = res.data[0].zan
             })
         }
     }
@@ -491,7 +493,7 @@ export default {
                     position absolute
                     top 15px
                     width 800px
-                    height 100%
+                    height 80px
                     font-size 18px
                     color #333
             .commentFooter
@@ -500,6 +502,19 @@ export default {
                     display inline-block
                     margin-left 15px
                     color #ccc
+                .zan
+                    position absolute
+                    right 95px
+                    bottom 10px
+                    display inline-block
+                    width 130px
+                    height 25px
+                    img 
+                        width 25px
+                        height 25px
+                        cursor pointer
+                    span 
+                        color #333
                 .commentDelete
                     position absolute
                     right 20px

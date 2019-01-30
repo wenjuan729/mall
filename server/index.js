@@ -31,6 +31,10 @@ app.get("/updateViews",loader.get("/updateViews"))
 
 app.get("/insertComments",loader.get("/insertComments"))
 
+app.get("/getComments",loader.get("/getComments"))
+
+app.get("/addZan",loader.get("/addZan"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
