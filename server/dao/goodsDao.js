@@ -97,10 +97,26 @@ function updateViews (view,goodsId,success) {
     connection.end();
 }
 
+//seach获取到所有商品信息
+function getSearchGoods (success) {
+    var querySql = "select * from goods order by goods_id desc;";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
 module.exports = {"insertGoodsList":insertGoodsList,
                   "queryGoodsByUsername":queryGoodsByUsername,
                   "updateGoodList":updateGoodList,
                   "getAllGoodsByPage":getAllGoodsByPage,
                   "getAllGoodsCount":getAllGoodsCount,
-                  "updateViews":updateViews
+                  "updateViews":updateViews,
+                  "getSearchGoods":getSearchGoods
                  };

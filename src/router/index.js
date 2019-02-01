@@ -16,6 +16,7 @@ import Other from '@/components/home/other'
 
 import ShopDetails from '@/components/shopDetails'
 import About from '@/components/about'
+import Search from '@/components/search'
 
 Vue.use(Router)
 
@@ -81,6 +82,11 @@ export default new Router({
       path:'/about',
       name:'about',
       component:About
+    },
+    {
+      path:'/search',
+      name:'search',
+      component:Search
     }
     
   ]

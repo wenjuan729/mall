@@ -90,4 +90,14 @@ function updateViews(request,response) {
 }
 path.set("/updateViews",updateViews);
 
+//搜索页面，获取到所有商品
+function getSearchGoods (request,response) {
+    goodsDao.getSearchGoods(function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getSearchGoods",getSearchGoods);
+
 module.exports.path = path;

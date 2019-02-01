@@ -19,8 +19,7 @@
                         <span class="username">{{item.user_name}}</span>
                         <span class="address">{{item.address}}</span>
                     </div>  
-                </div>
-                
+                </div>    
             </router-link>
         </ul>
         <div class="page-tool">

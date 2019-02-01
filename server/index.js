@@ -35,6 +35,8 @@ app.get("/getComments",loader.get("/getComments"))
 
 app.get("/addZan",loader.get("/addZan"))
 
+app.get('/getSearchGoods',loader.get("/getSearchGoods"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
