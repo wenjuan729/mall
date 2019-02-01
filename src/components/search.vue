@@ -1,6 +1,10 @@
 <template>
     <div class="searchWrapper">
         <div class="searchHeader">
+            <div class="sercTitle">
+                二手交易网
+                <p>一个能赚钱的网站</p>
+            </div>
             <div class="serachBox">
                 <el-input  placeholder="请在此输入您想找的商品" class="secInput" v-model="searchVal"></el-input>
                 <el-button type="primary" icon="el-icon-search" class="secBtn" @click="searchStar" >搜索</el-button>
@@ -120,15 +124,36 @@ export default {
     width 100%
     min-Height 500px
     background-color #ffffcc
+    padding-bottom 25px
     .searchHeader
         margin 0 auto
         width 1190px
-        height 80px
-        border 1px solid #ccc
+        height 90px
+        background-color #ff9
+        position relative
+        .sercTitle
+            display inline-block
+            width 180px
+            height 100%
+            font-size 30px
+            font-family Microsoft YaHei
+            color #ff9900
+            padding-top 15px
+            padding-left 45px
+            cursor default
+            p
+                font-size 14px
+                width 180px
+                height 20px
+                padding-top 10px
+                color #ff9933
         .serachBox
-            margin 0 auto
+            display inline-block
+            position absolute
+            left 300px
+            top 20px
             width 560px
-            height 50px
+            height 100%
             .secInput
                 width 460px
                 height 40px
@@ -136,6 +161,8 @@ export default {
                 width 88px
                 height 40px
                 margin-left -7px
+                background-color #ff9933
+                border none
             .ulBox
                 position relative
                 width 460px

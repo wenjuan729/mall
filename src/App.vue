@@ -8,7 +8,6 @@
         <router-link class="nav-item" :to="{name:'home'}" tag="li">首页</router-link>
       </div>
       <router-link class="serch" :to="{name:'search'}" tag="input" placeholder="我要搜索" readonly="readonly"></router-link>
-      <!-- <input type="text" placeholder="我要搜索" class="serch"> -->
       <div class="nav-right">
         <router-link class="nav-item" :to="{name:'login'}" tag="li">登陆</router-link>
         <router-link class="nav-item" :to="{name:'register'}" tag="li">注册</router-link>
@@ -17,7 +16,6 @@
       </div>
     </ul>
     <router-view />
-    <!-- <search v-show="isSh" @ChangeSh="ChangeSh"></search> -->
     <div class="footer">
       <h1>二手交易网-一个帮你省钱又赚钱的网站</h1>
       <h2>每年帮助超过1000万用户卖出宝贝</h2>
@@ -28,23 +26,12 @@
 </template>
 
 <script>
-// import Search from '@/components/search'
 
 export default {
   name: 'App',
   components:{
-  	// Search
+  	
   },
-  // data () {
-  //   return {
-  //     isSh : true,
-  //   }
-  // },
-  // methods : {
-  //   ChangeSh () {
-  //     this.isSh = !isSh;
-  //   }
-  // }
 }
 </script>
 
