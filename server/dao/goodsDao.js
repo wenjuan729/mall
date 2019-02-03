@@ -112,11 +112,47 @@ function getSearchGoods (success) {
     connection.end();
 }
 
+
+//phone页面，根据分页查询到phone的商品信息
+function getPhoneGoodsByPage (currentPage,pageSize,success) {
+    var querySql = "select * from goods where category = '手机' limit ?,?;";
+    var params = [currentPage * pageSize,pageSize];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+//phone.vue查询当前phone商品总数
+function getPhoneGoodsCount (success) {
+    var querySql = "select count(1) as count from goods where category = '手机';";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+
+
 module.exports = {"insertGoodsList":insertGoodsList,
                   "queryGoodsByUsername":queryGoodsByUsername,
                   "updateGoodList":updateGoodList,
                   "getAllGoodsByPage":getAllGoodsByPage,
                   "getAllGoodsCount":getAllGoodsCount,
                   "updateViews":updateViews,
-                  "getSearchGoods":getSearchGoods
+                  "getSearchGoods":getSearchGoods,
+                  "getPhoneGoodsByPage":getPhoneGoodsByPage,
+                  "getPhoneGoodsCount":getPhoneGoodsCount
                  };

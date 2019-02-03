@@ -100,4 +100,26 @@ function getSearchGoods (request,response) {
 }
 path.set("/getSearchGoods",getSearchGoods);
 
+//phone页面，根据分页查询到phone的商品信息
+function getPhoneGoodsByPage (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.getPhoneGoodsByPage(parseInt(params.currentPage),parseInt(params.pageSize),function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getPhoneGoodsByPage" ,getPhoneGoodsByPage);
+
+//获取phone商品总数
+function getPhoneGoodsCount (request,response) {
+    goodsDao.getPhoneGoodsCount(function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    });
+}
+path.set("/getPhoneGoodsCount" ,getPhoneGoodsCount);
+
+
 module.exports.path = path;

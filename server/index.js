@@ -37,6 +37,10 @@ app.get("/addZan",loader.get("/addZan"))
 
 app.get('/getSearchGoods',loader.get("/getSearchGoods"))
 
+app.get('/getPhoneGoodsByPage',loader.get("/getPhoneGoodsByPage"))
+
+app.get('/getPhoneGoodsCount',loader.get("/getPhoneGoodsCount"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
