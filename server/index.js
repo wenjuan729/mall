@@ -41,6 +41,10 @@ app.get('/getPhoneGoodsByPage',loader.get("/getPhoneGoodsByPage"))
 
 app.get('/getPhoneGoodsCount',loader.get("/getPhoneGoodsCount"))
 
+app.get('/getClothesGoodsByPage',loader.get("/getClothesGoodsByPage"))
+
+app.get('/getClothesGoodsCount',loader.get("/getClothesGoodsCount"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

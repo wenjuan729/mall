@@ -121,5 +121,27 @@ function getPhoneGoodsCount (request,response) {
 }
 path.set("/getPhoneGoodsCount" ,getPhoneGoodsCount);
 
+//clothes页面，根据分页查询到clothes的商品信息
+function getClothesGoodsByPage (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.getClothesGoodsByPage(parseInt(params.currentPage),parseInt(params.pageSize),function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getClothesGoodsByPage" ,getClothesGoodsByPage);
+
+//获取clothes商品总数
+function getClothesGoodsCount (request,response) {
+    goodsDao.getClothesGoodsCount(function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    });
+}
+path.set("/getClothesGoodsCount" ,getClothesGoodsCount);
+
+
 
 module.exports.path = path;

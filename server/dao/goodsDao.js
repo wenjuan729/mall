@@ -144,6 +144,37 @@ function getPhoneGoodsCount (success) {
     connection.end();
 }
 
+//clothes页面，根据分页查询到clothes的商品信息
+function getClothesGoodsByPage (currentPage,pageSize,success) {
+    var querySql = "select * from goods where category = '服装' limit ?,?;";
+    var params = [currentPage * pageSize,pageSize];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+//clothes.vue查询当前clothes商品总数
+function getClothesGoodsCount (success) {
+    var querySql = "select count(1) as count from goods where category = '服装';";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
 
 
 module.exports = {"insertGoodsList":insertGoodsList,
@@ -154,5 +185,7 @@ module.exports = {"insertGoodsList":insertGoodsList,
                   "updateViews":updateViews,
                   "getSearchGoods":getSearchGoods,
                   "getPhoneGoodsByPage":getPhoneGoodsByPage,
-                  "getPhoneGoodsCount":getPhoneGoodsCount
+                  "getPhoneGoodsCount":getPhoneGoodsCount,
+                  "getClothesGoodsByPage":getClothesGoodsByPage,
+                  "getClothesGoodsCount":getClothesGoodsCount
                  };
