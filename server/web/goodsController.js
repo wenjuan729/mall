@@ -142,6 +142,50 @@ function getClothesGoodsCount (request,response) {
 }
 path.set("/getClothesGoodsCount" ,getClothesGoodsCount);
 
+//beauty页面，根据分页查询到beauty的商品信息
+function getBeautyGoodsByPage (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.getBeautyGoodsByPage(parseInt(params.currentPage),parseInt(params.pageSize),function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getBeautyGoodsByPage" ,getBeautyGoodsByPage);
+
+//获取beauty美妆商品总数
+function getBeautyGoodsCount (request,response) {
+    goodsDao.getBeautyGoodsCount(function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    });
+}
+path.set("/getBeautyGoodsCount" ,getBeautyGoodsCount);
+
+//other页面，根据分页查询到other的商品信息
+function getOtherGoodsByPage (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.getOtherGoodsByPage(parseInt(params.currentPage),parseInt(params.pageSize),function(result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    })
+}
+path.set("/getOtherGoodsByPage" ,getOtherGoodsByPage);
+
+//获取other其他类商品总数
+function getOtherGoodsCount (request,response) {
+    goodsDao.getOtherGoodsCount(function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(JSON.stringify(result));
+        response.end();
+    });
+}
+path.set("/getOtherGoodsCount" ,getOtherGoodsCount);
+
+
+
 
 
 module.exports.path = path;

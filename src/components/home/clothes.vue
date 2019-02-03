@@ -146,3 +146,13 @@ export default {
             margin 30px auto
             text-align center
 </style>
+
+<style lang='stylus' ref='stylesheet/stylus'>
+.el-pagination li.active 
+    background: #ffd84d !important
+.el-pagination li
+    background : #fff !important
+.el-pagination button 
+    background : #fff !important
+
+</style>

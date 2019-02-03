@@ -45,6 +45,14 @@ app.get('/getClothesGoodsByPage',loader.get("/getClothesGoodsByPage"))
 
 app.get('/getClothesGoodsCount',loader.get("/getClothesGoodsCount"))
 
+app.get('/getBeautyGoodsByPage',loader.get("/getBeautyGoodsByPage"))
+
+app.get('/getBeautyGoodsCount',loader.get("/getBeautyGoodsCount"))
+
+app.get('/getOtherGoodsByPage',loader.get("/getOtherGoodsByPage"))
+
+app.get('/getOtherGoodsCount',loader.get("/getOtherGoodsCount"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

@@ -78,7 +78,7 @@
                         <div class="IntContent">
                             <h2>{{shopdetailList.title}}</h2>    
                             <p>宝 贝 成 色 ：{{shopdetailList.quality}}</p>
-                            <p>二 手 价 ：{{shopdetailList.price}}</p>
+                            <p>二 手 价 ：{{shopdetailList.price}}元</p>
                             <p class="IncDetail">{{shopdetailList.introduce}}</p>
                         </div>
                         

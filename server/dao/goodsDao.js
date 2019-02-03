@@ -175,6 +175,68 @@ function getClothesGoodsCount (success) {
     connection.end();
 }
 
+//beauty页面，根据分页查询到beauty的商品信息
+function getBeautyGoodsByPage (currentPage,pageSize,success) {
+    var querySql = "select * from goods where category = '美妆' limit ?,?;";
+    var params = [currentPage * pageSize,pageSize];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+//beauty.vue查询当前美妆商品总数
+function getBeautyGoodsCount (success) {
+    var querySql = "select count(1) as count from goods where category = '美妆';";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+//other页面，根据分页查询到other的商品信息
+function getOtherGoodsByPage (currentPage,pageSize,success) {
+    var querySql = "select * from goods where category = '其它类' limit ?,?;";
+    var params = [currentPage * pageSize,pageSize];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
+//other.vue查询当前其他类的商品总数
+function getOtherGoodsCount (success) {
+    var querySql = "select count(1) as count from goods where category = '其它类';";
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error); 
+        }
+    });
+    connection.end();
+}
+
 
 
 module.exports = {"insertGoodsList":insertGoodsList,
@@ -187,5 +249,9 @@ module.exports = {"insertGoodsList":insertGoodsList,
                   "getPhoneGoodsByPage":getPhoneGoodsByPage,
                   "getPhoneGoodsCount":getPhoneGoodsCount,
                   "getClothesGoodsByPage":getClothesGoodsByPage,
-                  "getClothesGoodsCount":getClothesGoodsCount
+                  "getClothesGoodsCount":getClothesGoodsCount,
+                  "getBeautyGoodsByPage":getBeautyGoodsByPage,
+                  "getBeautyGoodsCount":getBeautyGoodsCount,
+                  "getOtherGoodsByPage":getOtherGoodsByPage,
+                  "getOtherGoodsCount":getOtherGoodsCount
                  };
