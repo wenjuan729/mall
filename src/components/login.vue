@@ -4,7 +4,7 @@
             <div class="login_header">
                 账户登录
             </div>
-            <div class="login_main">
+            <div class="login_main" v-if="!$store.state.username">
                 <form action="">
                     <div class="input_use">
                         用户名： 
@@ -20,6 +20,10 @@
                 </form>
                 <router-link class="register" :to="{name: 'register'}">免费注册，有惊喜></router-link>   
             </div> 
+            <div class="isLogin" v-else>
+                <div class="hello">Hi,欢迎用户{{this.$store.state.username}}</div>
+                <button class="changeIsLogin" @click="changeIsLogin()">退出登陆</button>
+            </div>
         </div>
     </div>
 </template>
@@ -46,6 +50,13 @@ export default {
                     this.password = '';
                 }
             })
+        },
+        changeIsLogin () {
+            const answer = confirm("确定要退出登陆嘛？");
+            if(answer) {
+                this.$store.commit('setUserName','');
+                console.log(this.$store.state.username)
+            }
         }
     }
     
@@ -115,6 +126,28 @@ export default {
                 &:hover
                     color #ff6600
                     text-decoration underline
+        .isLogin
+            width 100%
+            .hello
+                width 100%
+                height 40px
+                font-size 28px
+                color #333
+                text-align center
+                line-height 40px
+                margin-top 80px
+            .changeIsLogin
+                width 320px
+                height 40px
+                margin-top 45px
+                margin-left 20px
+                background-color #f40
+                border 0px
+                font-size 20px
+                font-weight 700
+                color #fff
+                cursor pointer
+
                     
                 
 

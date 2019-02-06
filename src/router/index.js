@@ -20,7 +20,7 @@ import Search from '@/components/search'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -91,3 +91,35 @@ export default new Router({
     
   ]
 })
+
+//全局路由守卫
+router.beforeEach ((to,from,next) => {
+  //进入前需要拦截的页面
+  const nextRoute = ['personal','upload','shopDetails'];
+  if( nextRoute.indexOf(to.name) >= 0) {
+    const UserName = router.app.$store.state.username;
+    //未登录状态，跳转到登录界面
+    if(!UserName) {
+      const answer = confirm("您还没有登陆，要登陆后才能浏览信息，要登陆嘛？");
+      if(answer) {
+        router.push({name:'login'});
+      }else{
+        next(false);
+      }
+    }else {
+      next();
+    }
+  }else{
+    next();
+  }
+  //已经登录状态，点击注册时调到home页面
+  if(to.name === 'register') {
+    const UserName = router.app.$store.state.username;
+    if(UserName) {
+      alert("您已经登录，可直接浏览商品")
+      router.push({name:'home'});
+    }
+  }
+})
+
+export default router;
