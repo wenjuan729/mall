@@ -104,6 +104,14 @@ export default {
             }).then(res => {
                 // console.log(res)
                 alert("上传成功");
+                this.value = '';
+                this.title = '';
+                this.price = '';
+                this.quality = '';
+                this.address = '';
+                this.deliver = '';
+                this.introduce = '';
+                this.$refs.file.files[0] = '';
             })
         }
     }
