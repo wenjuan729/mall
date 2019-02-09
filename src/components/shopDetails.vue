@@ -80,8 +80,13 @@
                             <p>宝 贝 成 色 ：{{shopdetailList.quality}}</p>
                             <p>二 手 价 ：{{shopdetailList.price}}元</p>
                             <p class="IncDetail">{{shopdetailList.introduce}}</p>
+                            <img class="shopIncImg" :src="'api/getPic?path='+ shopdetailList.file_path" >
                         </div>
-                        
+                        <p class="shopInt">安全保障</p>
+                        <div class="space">
+                            <p>二手交易消费者安全保障服务</p>
+                            <div class="aqbz"></div>
+                        </div>
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="留言" name="second">
@@ -108,12 +113,15 @@
                                 <img src="../assets/img/zan.png" alt="" @click="addZan(index)">
                                 <span>点赞数({{item.zan}}）</span>
                             </div>
-                            <button class="commentDelete">删除</button>
+                            <button class="commentDelete" @click="deleatComment(index)">删除</button>
                         </div>
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="安全保障" name="third">
-                    安全保障
+                    <div class="space">
+                        <p>二手交易消费者安全保障服务</p>
+                        <div class="aqbz"></div>
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -152,7 +160,9 @@ export default {
                 if(res.data.status == 'success') {
                     alert("留言成功");
                     axios.get('api/getComments?goods_id='+ this.shopdetailList.goods_id).then( res => {
+                            // console.log(res);
                             this.commentList = res.data;
+                            this.commentsContent = '';
                     })
                 }else{
                     alert("留言失败，请重新输入留言内容");
@@ -163,6 +173,19 @@ export default {
             axios.get('/api/addZan?id='+ this.commentList[index].id +'&zan='+ this.commentList[index].zan).then(res => {
                 // console.log(res)
                 this.commentList[index].zan = res.data[0].zan
+            })
+        },
+        deleatComment (index) {
+            axios.get('/api/deleatComment?id='+ this.commentList[index].id).then(res => {
+                // console.log(res)
+                if(res.data.status == 'success') {
+                    alert("留言删除成功");
+                    axios.get('api/getComments?goods_id='+ this.shopdetailList.goods_id).then( res => {
+                            this.commentList = res.data;
+                    })
+                }else{
+                    alert("留言删除失败，请待会重试");
+                }
             })
         }
     }
@@ -423,6 +446,11 @@ export default {
                     margin-top 10px
                 .IncDetail
                     color rgb(0, 0, 255)
+                .shopIncImg
+                    margin-top 30px
+                    margin-left 150px
+                    width 600px
+                    height 600px
         .message
             margin 10px auto
             width 950px
@@ -521,6 +549,22 @@ export default {
                     width 80px
                     height 25px
                     cursor pointer
+        .space
+            margin 0px auto
+            width 950px
+            p
+                width 100%
+                hieght 35px
+                font-size 30px
+                color #333
+                font-weight 600
+                text-align center
+            .aqbz
+                width 100%
+                height 570px
+                background-image url(../assets/img/aqbz.png)
+                cursor text
+
 
 
                     

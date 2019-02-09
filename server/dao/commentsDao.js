@@ -64,8 +64,25 @@ function  getCommentsById (Id,success) {
     connection.end();
 }
 
+//删除留言
+function  deleatComment (Id,success) {
+    var deleteSql = "delete from comments where id= ?;";
+    var connection = dbutil.createConnection();
+
+    connection.connect();
+    connection.query(deleteSql,Id,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports = {"insertComments":insertComments,
                   "getComments":getComments,
                   "addZan":addZan,
-                  "getCommentsById":getCommentsById
+                  "getCommentsById":getCommentsById,
+                  "deleatComment":deleatComment
                  };

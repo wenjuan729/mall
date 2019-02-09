@@ -33,7 +33,7 @@ path.set("/getComments" ,getComments);
 //点击一次，赞的数目+1
 function addZan(request,response) {
     var params = url.parse(request.url,true).query;
-    console.log(params)
+    // console.log(params)
     commentDao.addZan(params.zan,params.id,function (result) {
         if(result) {
             commentDao.getCommentsById(params.id,function(result) {
@@ -46,6 +46,19 @@ function addZan(request,response) {
 }
 path.set("/addZan",addZan);
 
-
+//删除留言
+function deleatComment(request,response) {
+    var params = url.parse(request.url,true).query;
+    commentDao.deleatComment(params.id,function (result) {
+        if(result) {
+            commentDao.getCommentsById(params.id,function(result) {
+                response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+                response.write(respUtil.writeResult("success","留言信息删除成功",null));
+                response.end();
+            })
+        }
+    })
+}
+path.set("/deleatComment",deleatComment);
 
 module.exports.path = path;
