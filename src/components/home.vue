@@ -20,7 +20,10 @@ export default {
     
     components:{
         'v-slide':Slide
-    }
+    },
+    // created() {
+    //     console.log(this.$cookieStore)
+    // }
 }
 </script>
 

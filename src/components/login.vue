@@ -1,10 +1,18 @@
 <template>
     <div class="login-wrapper">
         <div class="login_box">
-            <div class="login_header">
-                账户登录
+            <div class="logBox">
+                <div class="login_header" :class="{'clickHover':!ifHoverShow}" @click="changeHover">
+                    用户登录
+                </div>
+                <span class="login_1"> | </span>
+                <div class="login_header" :class="{'clickHover':ifHoverShow}" @click="changeHover">
+                    管理员登录
+                </div>
             </div>
-            <div class="login_main" v-if="!$store.state.username">
+           
+            
+            <div class="login_main" v-if="!closeUserName">
                 <form action="">
                     <div class="input_use">
                         用户名： 
@@ -21,7 +29,8 @@
                 <router-link class="register" :to="{name: 'register'}">免费注册，有惊喜></router-link>   
             </div> 
             <div class="isLogin" v-else>
-                <div class="hello">Hi,欢迎用户{{this.$store.state.username}}</div>
+                <!-- <div class="hello">Hi,欢迎用户{{this.$store.state.username}}</div> -->
+                <div class="hello">Hi,欢迎用户{{closeUserName}}</div>                
                 <button class="changeIsLogin" @click="changeIsLogin()">退出登陆</button>
             </div>
         </div>
@@ -34,17 +43,34 @@ export default {
     data () {
         return {
             username:'',
-            password:''
+            password:'',
+            closeUserName: this.$cookieStore.getCookie('username'),
+            ifHoverShow:false
         }
     },
     methods:{
+        changeHover () {
+            this.ifHoverShow = !this.ifHoverShow;
+        },
         submitLoginForm () {
             axios.get('api/login?username='+this.username+'&password='+this.password).then((res) => {
-                console.log(res)
                 if(res.data.status == 'success') {
-                    alert("登录成功");
                     this.$store.commit('setUserName',this.username);
-                    this.$router.push({name:'home'})
+                    if (this.ifHoverShow) {
+                        if (this.username != 'admin') {
+                            alert("只允许管理员登录！请选择用户登录");
+                        } else {
+                            // window.location.href = 'http://localhost:12306/index.html';
+                            window.open("http://localhost:12306/index.html"); 
+                        }
+                        this.username = '';
+                        this.password = '';
+                    } else {
+                        alert("登录成功");
+                        this.$cookieStore.setCookie( 'username' ,this.username,86400);
+                        this.$cookieStore.setCookie( 'password' ,this.password,86400);
+                        this.$router.push({name:'home'})
+                    }
                 }else{
                     alert("用户名或者密码不正确,请重新登陆")
                     this.password = '';
@@ -54,8 +80,8 @@ export default {
         changeIsLogin () {
             const answer = confirm("确定要退出登陆嘛？");
             if(answer) {
-                this.$store.commit('setUserName','');
-                console.log(this.$store.state.username)
+                this.$cookieStore.delCookie('username');
+                this.closeUserName = this.$cookieStore.getCookie('username')
             }
         }
     }
@@ -77,15 +103,26 @@ export default {
         margin-top 50px
         margin-right 200px
         background-color #fff
-        .login_header
-            width 100%
+        .logBox
+            widtn 100%
             height 50px
             line-height 50px
             text-align center
             border-1px(rgba(240,20,20,0.1))
-            font-size 16px
-            font-weight 500
-            color #f60
+            .login_1
+                font-size 16px
+                font-weight 500
+                color #ccc
+            .login_header
+                display inline-block
+                width 80px
+                height 40px
+                font-size 16px
+                font-weight 500
+                color #f60
+                cursor pointer
+            .clickHover
+                border-bottom 2px solid #f60
         .login_main
             width 100%
             .input_use

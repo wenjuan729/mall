@@ -31,8 +31,8 @@ function login (request,response) {
     registerDao.queryLoginByUsername(params.username,function(result) {
         if(result && result.length > 0 && result[0].password == params.password) {
             //登录成功就写cookie,存入username和password
-            response.cookie("username",result[0].user_name);
-            response.cookie("password",result[0].password);
+            // response.cookie("username",result[0].user_name);
+            // response.cookie("password",result[0].password);
             response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
             response.write(respUtil.writeResult("success","登录成功",JSON.stringify(result)));
             response.end();

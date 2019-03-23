@@ -8,6 +8,7 @@ var app = new express();
 var uploadSingle = multer({dest:"./file/"});
 
 app.use(cookie());
+app.use(express.static(globalConfig["page_path"]));
 
 app.get("/editRegister",loader.get("/editRegister"));
 

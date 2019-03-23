@@ -21,12 +21,13 @@ import Search from '@/components/search'
 Vue.use(Router)
 
 const router = new Router({
+  // mode: 'history',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
-      redirect:'new',
+      redirect:'/new',
       children:[
         {
           path: 'new',
@@ -93,12 +94,28 @@ const router = new Router({
   ]
 })
 
+function getCookie(c_name){
+  if (document.cookie.length>0){
+      let c_start=document.cookie.indexOf(c_name + "=")
+      if (c_start!=-1){ 
+          c_start=c_start + c_name.length+1 
+          let c_end=document.cookie.indexOf(";",c_start)
+          if (c_end==-1) c_end=document.cookie.length
+              return unescape(document.cookie.substring(c_start,c_end))
+          } 
+      }
+  return ""
+}
+
 //全局路由守卫
 router.beforeEach ((to,from,next) => {
   //进入前需要拦截的页面
   const nextRoute = ['personal','upload','shopDetails'];
   if( nextRoute.indexOf(to.name) >= 0) {
-    const UserName = router.app.$store.state.username;
+    // const UserName = router.app.$store.state.username;
+    
+    const UserName = getCookie('username');
+    console.log(UserName)
     //未登录状态，跳转到登录界面
     if(!UserName) {
       const answer = confirm("您还没有登陆，要登陆后才能浏览信息，要登陆嘛？");
@@ -115,7 +132,8 @@ router.beforeEach ((to,from,next) => {
   }
   //已经登录状态，点击注册时调到home页面
   if(to.name === 'register') {
-    const UserName = router.app.$store.state.username;
+    // const UserName = router.app.$store.state.username;
+    const UserName = getCookie('username');
     if(UserName) {
       alert("您已经登录，可直接浏览商品")
       router.push({name:'home'});

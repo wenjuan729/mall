@@ -6,9 +6,15 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
+import { setCookie, getCookie, delCookie } from '@/assets/cookie.js'
 
 Vue.use(ElementUI);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.prototype.$cookieStore = {
+  setCookie, 
+  getCookie, 
+  delCookie
+}
 
 /* eslint-disable no-new */
 new Vue({
