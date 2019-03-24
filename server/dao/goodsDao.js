@@ -237,6 +237,22 @@ function getOtherGoodsCount (success) {
     connection.end();
 }
 
+//删除商品
+function  deleatGoods (Id,success) {
+    var deleteSql = "delete from goods where goods_id= ?;";
+    var connection = dbutil.createConnection();
+
+    connection.connect();
+    connection.query(deleteSql,Id,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 
 
 module.exports = {"insertGoodsList":insertGoodsList,
@@ -253,5 +269,6 @@ module.exports = {"insertGoodsList":insertGoodsList,
                   "getBeautyGoodsByPage":getBeautyGoodsByPage,
                   "getBeautyGoodsCount":getBeautyGoodsCount,
                   "getOtherGoodsByPage":getOtherGoodsByPage,
-                  "getOtherGoodsCount":getOtherGoodsCount
+                  "getOtherGoodsCount":getOtherGoodsCount,
+                  "deleatGoods":deleatGoods,
                  };

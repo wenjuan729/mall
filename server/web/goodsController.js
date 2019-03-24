@@ -184,6 +184,16 @@ function getOtherGoodsCount (request,response) {
 }
 path.set("/getOtherGoodsCount" ,getOtherGoodsCount);
 
+//删除商品
+function deleatGoods (request,response) {
+    var params = url.parse(request.url,true).query;
+    goodsDao.deleatGoods(params.id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","商品删除成功",null));
+        response.end();
+    })
+}
+path.set("/deleatGoods",deleatGoods);
 
 
 

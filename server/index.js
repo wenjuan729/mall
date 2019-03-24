@@ -56,6 +56,8 @@ app.get('/getOtherGoodsCount',loader.get("/getOtherGoodsCount"))
 
 app.get("/deleatComment",loader.get("/deleatComment"))
 
+app.get("/deleatGoods",loader.get("/deleatGoods"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
