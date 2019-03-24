@@ -200,7 +200,8 @@ export default {
                 height 40px
                 background-color #409EFF
                 border 0px solid #fff
-                color #fff   
+                color #fff  
+                cursor pointer 
 
                 
 
