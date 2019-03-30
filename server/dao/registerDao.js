@@ -33,6 +33,23 @@ function queryLoginByUsername(username,success) {
     });
     connection.end();
 }
+//根据用户ID修改个人信息
+function updatePersonalList (age,gender,describe,utime,id,success) {
+    var uploadSql = "update login set `age`= ?,`gender`= ?,`describe`= ?,`ctime`= ? where `id`= ?;";
+    var params = [age,gender,describe,utime,id];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(uploadSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
 
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
+module.exports.updatePersonalList = updatePersonalList;

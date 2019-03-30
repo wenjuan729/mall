@@ -57,4 +57,16 @@ function queryLoginByUsername (request,response) {
 }
 path.set("/queryLoginByUsername" ,queryLoginByUsername);
 
+//根据用户名ID修改用户个人信息
+function updatePersonalList (request,response) {
+    var params = url.parse(request.url,true).query;
+    // console.log(params);
+    registerDao.updatePersonalList(params.age,params.gender,params.describe,timeUtil.getNow(),params.id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","个人信息修改成功",JSON.stringify(result)));
+        response.end();
+    })
+}
+path.set("/updatePersonalList" ,updatePersonalList);
+
 module.exports.path = path;
