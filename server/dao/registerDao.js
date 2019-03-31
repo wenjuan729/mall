@@ -34,9 +34,26 @@ function queryLoginByUsername(username,success) {
     connection.end();
 }
 //根据用户ID修改个人信息
-function updatePersonalList (age,gender,describe,utime,id,success) {
+function updatePersonalList (age,gender,describe,ctime,id,success) {
     var uploadSql = "update login set `age`= ?,`gender`= ?,`describe`= ?,`ctime`= ? where `id`= ?;";
-    var params = [age,gender,describe,utime,id];
+    var params = [age,gender,describe,ctime,id];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(uploadSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
+//修改密码
+function updatePersonalPassword (password,ctime,id,success) {
+    var uploadSql = "update login set `password`= ?,`ctime`= ? where `id`= ?;";
+    var params = [password,ctime,id];
 
     var connection = dbutil.createConnection();
     connection.connect();
@@ -53,3 +70,4 @@ function updatePersonalList (age,gender,describe,utime,id,success) {
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
 module.exports.updatePersonalList = updatePersonalList;
+module.exports.updatePersonalPassword = updatePersonalPassword;

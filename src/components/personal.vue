@@ -14,7 +14,7 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item><span @click="personalDialogVisible = true">修改个人信息</span></el-dropdown-item>
-                                    <el-dropdown-item>修改密码</el-dropdown-item>
+                                    <el-dropdown-item><span @click="changePasswordDialog = true">修改密码</span></el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             <p class="personalGender">性别：{{personalList.gender}}</p>
@@ -114,6 +114,28 @@
                 <el-button type="primary" @click="submitPersonal" class="btnClass">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 修改密码弹框 -->
+        <el-dialog
+            title="修改密码"
+            :visible.sync="changePasswordDialog"
+            width="31%"
+            :before-close="handleClose">
+            <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="当前密码" prop="curpass" class="passClass">
+                    <el-input type="password" v-model="ruleForm2.curpass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="请输入新密码" prop="pass" class="passClass">
+                    <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass" class="passClass">
+                    <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm2')" class="btnPass">提交</el-button>
+                    <el-button @click="resetForm('ruleForm2')" class="btnPass">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
     </div>
 </template>
 
@@ -148,6 +170,7 @@ export default {
       changePersonal () {
           this.isChanging = !this.isChanging;
       },
+      //关闭弹窗提示
       handleClose (done) {
           this.$confirm('确认关闭？')
           .then(_ => {
@@ -172,9 +195,65 @@ export default {
                     this.personalList.describe = this.describe;
                 }
             })
+      },
+      //提交修改密码表单
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            axios.get('api/updatePersonalPassword?password='+ this.ruleForm2.pass +'&id=' +this.personalList.id ).then(res => {
+                // console.log(res)
+                // this.$cookieStore.setCookie( 'password' ,this.ruleForm2.pass,86400);
+                // this.$message({
+                //     message: '密码修改成功,请重新登陆',
+                //     type: 'success'
+                // })
+                alert('密码修改成功,请重新登陆')
+                this.changePasswordDialog = false; 
+            })
+            this.$cookieStore.delCookie('username');
+            this.$router.push({name:'login'});
+          } else {
+            console.log('错误提交请稍后再试');
+            this.$message.error('密码修改失败，请重新输入');
+            return false;
+          }
+        });
+      },
+
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+        this.changePasswordDialog = false; 
       }
     },
     data() {
+        //表单验证
+        var validCurPass = (rule,value,callback) => {
+            var curPassword = this.$cookieStore.getCookie('password')
+            if(value !== curPassword) {
+                callback(new Error('请确认正确密码'));
+            }else{
+                callback();
+            }
+        }
+        var validatePass = (rule, value, callback) => {
+            if (value === '') {
+            callback(new Error('请输入新密码'));
+            } else {
+            if (this.ruleForm2.checkPass !== '') {
+                this.$refs.ruleForm2.validateField('checkPass');
+            }
+            callback();
+            }
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+            callback(new Error('请再次输入密码'));
+            } else if (value !== this.ruleForm2.pass) {
+            callback(new Error('两次输入密码不一致!'));
+            } else {
+            callback();
+            }
+        };
       return {
         isChanging: false,
         personalDialogVisible:false,
@@ -184,12 +263,31 @@ export default {
         tableData: [{}],
         gender:'',
         age:'',
-        describe:''
+        describe:'',
+        changePasswordDialog:false,
+        ruleForm2: {
+            curpass:'',
+            pass: '',
+            checkPass: '',
+        },
+        //校验规则
+        rules2: {
+            curpass:[
+                {validator: validCurPass,trigger: 'blur'}
+            ],
+            pass: [
+                { validator: validatePass, trigger: 'blur' }
+            ],
+            checkPass: [
+                { validator: validatePass2, trigger: 'blur' }
+            ],
+        }
       }
     },
+      
     created () {
         axios.get('api/queryLoginByUsername').then(res => {
-            // console.log(res)
+            console.log(res)
             var personal = JSON.parse(res.data.data);
             this.personalList = personal[0];
             this.gender = personal[0].gender;
@@ -199,7 +297,7 @@ export default {
         axios.get('api/queryGoodsByUsername').then(res => {
             this.tableData = res.data;
         })
-    },
+    }
 }
 </script>
 
@@ -250,4 +348,12 @@ export default {
 .btnClass
     width 100px
     padding 10px 0
+.passClass
+    width 400px
+    margin-top 20px
+.btnPass
+    margin-top 20px
+    width 100px
+    padding 10px 0
+    
 </style>

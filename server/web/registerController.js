@@ -69,4 +69,16 @@ function updatePersonalList (request,response) {
 }
 path.set("/updatePersonalList" ,updatePersonalList);
 
+//修改密码
+function updatePersonalPassword (request,response) {
+    var params = url.parse(request.url,true).query;
+    // console.log(params);
+    registerDao.updatePersonalPassword(params.password,timeUtil.getNow(),params.id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","密码修改成功",JSON.stringify(result)));
+        response.end();
+    })
+}
+path.set("/updatePersonalPassword" ,updatePersonalPassword);
+
 module.exports.path = path;
