@@ -89,6 +89,21 @@
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
+                    <el-tab-pane label="我购买的商品" >
+                        <ul class="buyGoodsWrapper">
+                            <li class="buygoods" v-for="(item, index) in buyGoodsList" :key="index">
+                                <img :src="'api/getPic?path='+ item.goods_img" class="buygoodsImg">
+                                <div class="buygoodstitle">
+                                    {{item.goods_title}}
+                                    <span class="buygoodsprice">￥{{item.goods_price}}</span>
+                                </div>
+                                <div class="buygoosTimeBox">
+                                    <p class="buygoodTimeText">购买时间 : </p>
+                                    <p class="buyGoodTime">{{item.ctime}}</p>
+                                </div>
+                             </li>
+                        </ul>
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>
@@ -261,6 +276,7 @@ export default {
         changeData:{},
         personalList:{},
         tableData: [{}],
+        buyGoodsList:{},
         gender:'',
         age:'',
         describe:'',
@@ -287,7 +303,7 @@ export default {
       
     created () {
         axios.get('api/queryLoginByUsername').then(res => {
-            console.log(res)
+            // console.log(res)
             var personal = JSON.parse(res.data.data);
             this.personalList = personal[0];
             this.gender = personal[0].gender;
@@ -296,6 +312,10 @@ export default {
         })
         axios.get('api/queryGoodsByUsername').then(res => {
             this.tableData = res.data;
+        })
+        axios.get('api/queryBuyGoodsByUsername').then(res => {
+            console.log(res)
+            this.buyGoodsList = res.data;
         })
     }
 }
@@ -345,6 +365,49 @@ export default {
                     border-radius 5px
                     padding 5px
                     font-size 16px
+        .buyGoodsWrapper
+            margin 0 auto
+            width 1120px
+            .buygoods
+                position relative
+                margin-top 10px
+                width 1120px
+                height 100px
+                border 1px solid #ccc
+                .buygoodsImg
+                    margin-left 60px
+                    margin-top 10px
+                    width 80px;
+                    height 80px;
+                .buygoodstitle
+                    display inline-block
+                    position absolute
+                    top 10px
+                    width 60%
+                    height 80px
+                    line-height 80px
+                    font-size 26px
+                    margin-left 50px
+                    color #444
+                    border 1px solid #ccc
+                    .buygoodsprice
+                        position absolute
+                        top 0px
+                        right 16px
+                        font-size 22px
+                        color #f40
+                .buygoosTimeBox
+                    display inline-block
+                    position absolute
+                    top 10px
+                    right 40px
+                    .buygoodTimeText
+                        margin-top 15px
+                        margin-left 55px
+                        color #333
+                    .buyGoodTime
+                        margin-top 15px
+                        color #409EFF
 .btnClass
     width 100px
     padding 10px 0

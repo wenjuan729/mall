@@ -47,7 +47,7 @@
                 </div>
                 <div class="shopFooter">
                     <p>
-                        <el-button type="warning" class="purchase">立即购买</el-button>
+                        <el-button type="warning" class="purchase" @click="buySuccess">立即购买</el-button>
                     </p>
                 </div>
                 <div class="transaction">
@@ -147,13 +147,14 @@ export default {
     },
     computed:{
         shopdetailList () {
-            // console.log(this.$store.state.shopdetailList)
+            console.log(this.$store.state.shopdetailList)
             return this.$store.state.shopdetailList;
             
         }
         // ...mapState('[shopdetailList]')
     },
     methods:{
+        //写留言
         insertComments () {
             axios.get('/api/insertComments?user_name='+ this.$store.state.username +'&content='+ this.commentsContent + '&goods_id='+ this.shopdetailList.goods_id).then( res => {
                 // console.log(res)
@@ -169,12 +170,14 @@ export default {
                 }
             })
         },
+        //点赞
         addZan (index) {
             axios.get('/api/addZan?id='+ this.commentList[index].id +'&zan='+ this.commentList[index].zan).then(res => {
                 // console.log(res)
                 this.commentList[index].zan = res.data[0].zan
             })
         },
+        //删除留言
         deleatComment (index) {
             axios.get('/api/deleatComment?id='+ this.commentList[index].id).then(res => {
                 // console.log(res)
@@ -187,6 +190,19 @@ export default {
                     alert("留言删除失败，请待会重试");
                 }
             })
+        },
+        //购买成功
+        buySuccess () {
+            var curUserName = this.$cookieStore.getCookie('username')
+            axios.get('api/addBuyGoods?username='+ curUserName +'&goodsTitle='+ this.shopdetailList.title +'&goodsPrice='+ this.shopdetailList.price +'&goodsImg='+ this.shopdetailList.file_path ).then( res => {
+                this.$notify({
+                        title: '成功',
+                        message: '订单创建成功，可到个人中心"我购买的商品"查看购买的商品信息',
+                        type: 'success'
+                });
+                this.$router.push({name:'personal'})
+            });
+            
         }
     }
 }

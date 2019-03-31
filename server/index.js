@@ -62,6 +62,10 @@ app.get("/updatePersonalList",loader.get("/updatePersonalList"))
 
 app.get("/updatePersonalPassword",loader.get("/updatePersonalPassword"))
 
+app.get("/addBuyGoods",loader.get("/addBuyGoods"))
+
+app.get("/queryBuyGoodsByUsername",loader.get("/queryBuyGoodsByUsername"))
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
