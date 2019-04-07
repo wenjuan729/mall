@@ -20,31 +20,51 @@
         <i class="glyphicon glyphicon-off"></i>
         <p>登出</p>
       </div>
-    </div>
-    
+    </div>  
   </div>
-  <div id="wrap">
-      <div id="tit">
-          <span class="select">标题1</span>
-          <span>标题2</span>
-          <span>标题3</span>
+  <!-- 导航条和内容显示 -->
+  <div class="navWrapper">
+    <!-- 导航条 -->
+    <ul class="nav nav-pills nav-stacked navLeft" >
+      <li role="presentation" class="active navItem">
+        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+          用户管理
+        </a>
+      </li>
+      <li role="presentation" class="navItem">
+        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+          商品管理
+        </a>
+      </li>
+      <li role="presentation" class="navItem">
+        <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+          订单管理
+        </a>
+      </li>
+      <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+    </ul>
+    <!-- 内容展示区 -->
+    <div class="tab-content contentBox">
+      <div role="tabpanel" class="tab-pane fade in active contentTab" id="home">
+        用户管理
       </div>
-      <ul id="con">
-          <li class="show">内容111</li>
-          <li>内容222</li>
-          <li>内容333</li>
-      </ul>
+      <div role="tabpanel" class="tab-pane fade contentTab" id="profile">
+        商品管理
+      </div>
+      <div role="tabpanel" class="tab-pane fade contentTab" id="messages">
+        订单管理
+      </div>
+      <!-- <div role="tabpanel" class="tab-pane fade" id="settings">444</div> -->
   </div>
+  
 
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script>
-      $('#tit span').click(function() {
-            var i = $(this).index();//下标第一种写法
-            //var i = $('tit').index(this);//下标第二种写法
-            $(this).addClass('select').siblings().removeClass('select');
-            $('#con li').eq(i).show().siblings().hide();
-        });
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+      })
     </script>
 </body>
 </html>
