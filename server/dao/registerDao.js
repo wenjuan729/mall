@@ -67,7 +67,44 @@ function updatePersonalPassword (password,ctime,id,success) {
     connection.end();
 }
 
+// 获取用户信息
+function getUserMsg(offset, limit, success) {
+    var params = [parseInt(offset), parseInt(limit)];
+    var selectSql = "select * from login order by ctime desc limit ?, ?;";
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    
+    connection.query(selectSql, params, function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
+// 获取用户总数 
+function getUserMsgTotal(success) {
+    var selectSql = "select count(1) as count from login;";
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(selectSql, function(error,result) {
+        if (error == null) {
+            success(result);
+            
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
 module.exports.updatePersonalList = updatePersonalList;
 module.exports.updatePersonalPassword = updatePersonalPassword;
+module.exports.getUserMsg = getUserMsg;
+module.exports.getUserMsgTotal = getUserMsgTotal;

@@ -47,14 +47,48 @@ body{
     font-size:28px;   
 }
 .navWrapper {
+    position: relative;
     width:100%;
-    height: 580px;
+    height: 100%;
 }
 .navWrapper .navLeft{
+    position: absolute;
+    display: inline-block;
     width:200px;
-    height:100%;
+    height:520px;
     background-color: beige;
 }
 .navWrapper .navItem a{
     font-size:20px
+}
+.navWrapper .navRight {
+    position: absolute;
+    left:200px;
+    display: inline-block;
+    border:1px solid #9cf;
+    width:1150px;
+    height:100%;
+}
+.navWrapper .navRight .contentHeader {
+    width: 100%;
+    height:40px;
+    margin-top:15px;
+    font-size:26px;
+    color:#444;
+    text-align: center;
+    line-height:40px;
+}
+.navWrapper .navRight .contentTable {
+    width:100%;
+    height:100%;
+    padding:25px;
+    border:1px solid #ccc;
+}
+.navWrapper .navRight .contentTable1 .updateInfo, .delInfo{
+    cursor: pointer;
+}
+.navWrapper .navRight .contentTable1 .updateInfo:hover, .delInfo:hover{
+    /* background-color: #9cf; */
+    color:#9cf;
+    border-radius: 5px;
 }

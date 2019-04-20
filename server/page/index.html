@@ -44,27 +44,196 @@
       <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
     </ul>
     <!-- 内容展示区 -->
-    <div class="tab-content contentBox">
+    <div class="tab-content contentBox navRight">
       <div role="tabpanel" class="tab-pane fade in active contentTab" id="home">
-        用户管理
+        <div class="contentHeader">
+          用户信息管理
+        </div>
+        <div class="contentTable1">
+          <table class="table table-hover">
+            <thead>
+              <th>序号</th>
+              <th>用户名</th>
+              <th>密码</th>
+              <th>性别</th>
+              <th>年龄</th>
+              <th>注册时间</th>
+              <th>操作</th>
+            </thead>
+            <tbody class="tab-body">
+              <!-- <tr>
+                <td>1</td>
+                <td>1001</td>
+                <td>111111</td>
+                <td>女</td>
+                <td>22</td>
+                <td>2018年</td>
+                <td>
+                  <span class="updateInfo">编辑</span>
+                  <span> | </span>
+                  <span class="delInfo">删除</span>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="control-label">用户名</label>
+                      <input type="text" class="form-control user-name" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="control-label">密码</label>
+                      <input type="text" class="form-control password" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="control-label">描述</label>
+                      <textarea class="form-control des" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 翻页 -->
+          <nav aria-label="Page navigation">
+            <ul class="pagination"></ul>
+          </nav>
+        </div>
+        
       </div>
       <div role="tabpanel" class="tab-pane fade contentTab" id="profile">
-        商品管理
+        <div class="contentHeader">
+          商品管理
+        </div>
+        <div class="contentTable2">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#phone" role="tab" id="phone-tab" data-toggle="tab" aria-controls="profile" aria-expanded="true">
+                  手机
+                </a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#clothes" id="clothes-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false">
+                  服装
+                </a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#beauty" role="tab" id="beauty-tab" data-toggle="tab" aria-controls="profile" aria-expanded="true">
+                  美妆
+                </a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#other" role="tab" id="other-tab" data-toggle="tab" aria-controls="profile" aria-expanded="true">
+                  其它
+                </a>
+              </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <!-- 手机 -->
+                <div role="tabpanel" class="tab-pane fade active in" id="phone" aria-labelledby="phone-tab">
+                  <table class="table table-hover">
+                    <thead>
+                      <th>上传用户</th>
+                      <th>商品名称</th>
+                      <th>商品价格</th>
+                      <th>商品所在地</th>
+                      <th>商品描述</th>
+                      <th>商品上传时间</th>
+                      <th>操作</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1001</td>
+                        <td>手机</td>
+                        <td>88元</td>
+                        <td>北京</td>
+                        <td>很好呀</td>
+                        <td>2019年</td>
+                        <td>
+                          <span class="updateInfo">编辑</span>
+                          <span> | </span>
+                          <span class="delInfo">删除</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- 服装 -->
+                <div role="tabpanel" class="tab-pane fade" id="clothes" aria-labelledby="clothes-tab">
+                  <table class="table table-hover">
+                    <thead>
+                      <th>上传用户</th>
+                      <th>商品名称</th>
+                      <th>商品价格</th>
+                      <th>商品所在地</th>
+                      <th>商品描述</th>
+                      <th>商品上传时间</th>
+                      <th>操作</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1001</td>
+                        <td>衣服</td>
+                        <td>88元</td>
+                        <td>北京</td>
+                        <td>很好呀</td>
+                        <td>2019年</td>
+                        <td>
+                          <span class="updateInfo">编辑</span>
+                          <span> | </span>
+                          <span class="delInfo">删除</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- 美妆 -->
+                <div role="tabpanel" class="tab-pane fade" id="beauty" aria-labelledby="beauty-tab">
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                </div>
+                <!-- 其它 -->
+                <div role="tabpanel" class="tab-pane fade" id="other" aria-labelledby="other-tab">
+                  <p>sssssssssssssssssssssssssssssss</p>
+                </div>
+              </div>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane fade contentTab" id="messages">
-        订单管理
+        <div class="contentHeader">
+           订单管理
+        </div>
       </div>
       <!-- <div role="tabpanel" class="tab-pane fade" id="settings">444</div> -->
   </div>
   
 
-    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-3.2.1.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
     <script>
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         e.target // newly activated tab
         e.relatedTarget // previous active tab
       })
+
+      //用户信息管理数组
+      var userListArr=[
+        {id:'1',username:'1001',password:'111111',gender:'女',age:'18',ctime:'2008年'}
+      ]
     </script>
 </body>
 </html>

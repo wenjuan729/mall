@@ -66,6 +66,9 @@ app.get("/addBuyGoods",loader.get("/addBuyGoods"))
 
 app.get("/queryBuyGoodsByUsername",loader.get("/queryBuyGoodsByUsername"))
 
+// 获取用户信息
+app.get("/getUserMsg", loader.get("/getUserMsg"));
+
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

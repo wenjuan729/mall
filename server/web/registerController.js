@@ -81,4 +81,18 @@ function updatePersonalPassword (request,response) {
 }
 path.set("/updatePersonalPassword" ,updatePersonalPassword);
 
+// 获取用户信息
+function getUserMsg(request,response) {
+    console.log(request.url)
+    var params = url.parse(request.url,true).query;
+    registerDao.getUserMsg(params.offset, params.limit, function (result) {
+        registerDao.getUserMsgTotal(function (count) {
+            response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+            response.write(JSON.stringify({total: count[0].count, rows: result}));
+            response.end();
+        })
+    })
+}
+path.set("/getUserMsg", getUserMsg);
+
 module.exports.path = path;
