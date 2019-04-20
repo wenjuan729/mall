@@ -3,7 +3,15 @@
     function init() {
         sendAjax('GET', '/getUserMsg?offset=0&limit=8', function (res) {
             renderData(JSON.parse(res).rows, $('.contentTable1').find('.tab-body'));
-            renderTurnPage(JSON.parse(res).total);
+            renderTurnPage(JSON.parse(res).total, $(".contentTable1 .pagination"), 'getUserMsg', renderData, $('.contentTable1').find('.tab-body'), "#exampleModal1");
+        })
+        // 手机
+        sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
+            // console.log(res.data);
+            renderData1(res.data, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1")
+        })
+        sendAjax('GET', '/getPhoneGoodsCount', function (res) {
+            renderTurnPage(res.data[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1");
         })
     }
 
@@ -39,7 +47,29 @@
         bindEvent(arr);
     }
 
-    function renderTurnPage(total) {
+    // 商品管理页面
+    function renderData1(arr, dom, exampleModal, firstNum = 0) {
+        var str = ''
+        arr.forEach((ele, index) => {
+            str += `<tr>
+                        <td>${ele.user_name}</td>
+                        <td>${ele.title}</td>
+                        <td>${ele.price}</td>
+                        <td>${ele.address}</td>
+                        <td>${ele.introduce}</td>
+                        <td>${ele.ctime}</td>
+                        <td data=${index}>
+                            <span class="updateInfo" data-toggle="modal" data-target=${exampleModal} data-whatever="@mdo">编辑</span>
+                            <span> | </span>
+                            <span class="delInfo">删除</span>
+                        </td>
+                    </tr>`
+        });
+        dom.html(str);
+        bindEvent(arr);
+    }
+
+    function renderTurnPage(total, dom, url, func, dom1, exampleModal) {
         var prevStr = `<li>
                             <a class="prev" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -54,25 +84,29 @@
         var str = '';
         for(var i = 0; i < len; i ++) {
             str += `<li><a class="num" href="#">${i + 1}</a></li>`;
-        }         
-        $(".pagination").html(prevStr + str + nextStr);
-        truePageClick(len)
+        }
+        dom.html(prevStr + str + nextStr);
+        truePageClick(len, url, func, dom1, exampleModal)
     }
 
-    function truePageClick(num) {
+    function truePageClick(num, url, func, dom, exampleModal) {
         for(let i = 0; i < num; i ++) {
             $(".pagination li").find(".num").eq(i).on('click', function() {
                 // i * 8
-                sendAjax('GET', `/getUserMsg?offset=${i * 8}&limit=8`, function (res) {
-                    renderData(JSON.parse(res).rows, $('.contentTable1').find('.tab-body'), i * 8);
+                sendAjax('GET', `/${url}?offset=${i * 8}&limit=8`, function (res) {
+                    if (func == renderData) {
+                        func(JSON.parse(res).rows, dom, i * 8);
+                    } else {
+                        func(res.data, dom, exampleModal, i * 8);
+                    }
                 })
             })
         }
     }
 
     function bindEvent(res) {
+        var data = res[ $(this).parent().attr('data') ];
         $('.contentTable1').find('.updateInfo').on('click', function () {
-            var data = res[ $(this).parent().attr('data') ];
             console.log(data);
             $('.contentTable1').find('.user-name').val(data.user_name);
             $('.contentTable1').find('.password').val(data.password);
@@ -95,13 +129,37 @@
             }
         })
         $('.contentTable1').find('.delInfo').on('click', function () {
-            var data = res[ $(this).parent().attr('data') ];
             sendAjax('GET', `/delUserMsg?username=${data.user_name}`, function (res) {
                 if (JSON.parse(res).msg == '用户信息删除成功') {
                     alert('该用户已成功注销')
                     window.location.reload()
                 }
             })
+        })
+        // 手机
+        $('.contentTable2 #phone').find('.updateInfo').on('click', function () {
+            console.log(data);
+            $('.contentTable2 #phone').find('.goods-name').val(data.title);
+            $('.contentTable2 #phone').find('.goods-price').val(data.price);
+            $('.contentTable2 #phone').find('.goods-ad').val(data.address);
+            $('.contentTable2 #phone').find('.goods-des').val(data.introduce);
+        })
+        $('.contentTable2 #phone').find('.btn-primary').on('click', function () {
+            var goodName = $('.contentTable2 #phone').find('.goods-name').val();
+            var goodPrice = $('.contentTable2 #phone').find('.goods-price').val();
+            var goodAd = $('.contentTable2 #phone').find('.goods-ad').val();
+            var goodDes = $('.contentTable2 #phone').find('.goods-des').val();
+            if (goodName && goodPrice && goodAd && goodDes) {
+                sendAjax('GET', `/AdminUpdateGoodList?title=${goodName}&price=${goodPrice}&address=${goodAd}&introduce=${goodDes}&goods_id=${data.goods_id}`, function (res) {
+                    console.log(JSON.parse(res));
+                    // if (JSON.parse(res).msg == '用户信息修改成功') {
+                    //     alert('用户信息修改成功')
+                    //     window.location.reload()
+                    // }
+                })
+            } else {
+                alert('请填写完整信息');
+            }
         })
     }
 
