@@ -3,14 +3,35 @@
     function init() {
         sendAjax('GET', '/getUserMsg?offset=0&limit=8', function (res) {
             renderData(JSON.parse(res).rows, $('.contentTable1').find('.tab-body'));
-            renderTurnPage(JSON.parse(res).total, $(".contentTable1 .pagination"), 'getUserMsg', renderData, $('.contentTable1').find('.tab-body'), "#exampleModal1");
+            renderTurnPage('.contentTable1', JSON.parse(res).total, $(".contentTable1 .pagination"), 'getUserMsg', renderData, $('.contentTable1').find('.tab-body'), "#exampleModal1");
         })
         // 手机
         sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
             renderData1(JSON.parse(res), $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1)
         })
         sendAjax('GET', '/getPhoneGoodsCount', function (res) {
-            renderTurnPage(JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1");
+            renderTurnPage('#phone', JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1);
+        })
+        // 服装
+        sendAjax('GET', '/getClothesGoodsByPage?currentPage=0&pageSize=8', function (res) {
+            renderData1(JSON.parse(res), $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1)
+        })
+        sendAjax('GET', '/getClothesGoodsCount', function (res) {
+            renderTurnPage('#clothes', JSON.parse(res)[0].count, $(".contentTable2 #clothes .pagination"), 'getClothesGoodsByPage', renderData1, $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1);
+        })
+        // 美妆
+        sendAjax('GET', '/getBeautyGoodsByPage?currentPage=0&pageSize=8', function (res) {
+            renderData1(JSON.parse(res), $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal2", bindEvent1)
+        })
+        sendAjax('GET', '/getBeautyGoodsCount', function (res) {
+            renderTurnPage('#beauty', JSON.parse(res)[0].count, $(".contentTable2 #beauty .pagination"), 'getBeautyGoodsByPage', renderData1, $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal2", bindEvent1);
+        })
+        // 其它
+        sendAjax('GET', '/getOtherGoodsByPage?currentPage=0&pageSize=8', function (res) {
+            renderData1(JSON.parse(res), $('.contentTable2 #other').find('.tab-body'), "#exampleModal2", bindEvent1)
+        })
+        sendAjax('GET', '/getOtherGoodsCount', function (res) {
+            renderTurnPage('#other', JSON.parse(res)[0].count, $(".contentTable2 #other .pagination"), 'getOtherGoodsByPage', renderData1, $('.contentTable2 #other').find('.tab-body'), "#exampleModal2", bindEvent1);
         })
     }
 
@@ -25,6 +46,7 @@
         })
     }
 
+    // 用户管理页面
     function renderData(arr, dom, firstNum = 0) {
         var str = ''
         arr.forEach((ele, index) => {
@@ -68,7 +90,7 @@
         bindFunc(arr);
     }
 
-    function renderTurnPage(total, dom, url, func, dom1, exampleModal) {
+    function renderTurnPage(type, total, dom, url, func, dom1, exampleModal, bindFunc) {
         var prevStr = `<li>
                             <a class="prev" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -85,12 +107,12 @@
             str += `<li><a class="num" href="#">${i + 1}</a></li>`;
         }
         dom.html(prevStr + str + nextStr);
-        truePageClick(len, url, func, dom1, exampleModal)
+        truePageClick(type, len, url, func, dom1, exampleModal, bindFunc)
     }
 
-    function truePageClick(num, url, func, dom, exampleModal) {
+    function truePageClick(type, num, url, func, dom, exampleModal, bindFunc) {
         for(let i = 0; i < num; i ++) {
-            $(".pagination li").find(".num").eq(i).on('click', function() {
+            $(type +" .pagination li").find(".num").eq(i).on('click', function() {
                 // i * 8
                 console.log(func == renderData)
                 if (func == renderData) {
@@ -99,8 +121,7 @@
                     })
                 } else {
                     sendAjax('GET', `/${url}?currentPage=${i}&pageSize=8`, function (res) {
-                        console.log(JSON.parse(res))
-                        func(JSON.parse(res), dom, exampleModal, i * 8);
+                        func(JSON.parse(res), dom, exampleModal, bindFunc, i * 8);
                     })
                 }
             })
