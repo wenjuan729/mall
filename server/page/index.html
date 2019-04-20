@@ -157,8 +157,8 @@
                       <th>商品上传时间</th>
                       <th>操作</th>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody class="tab-body">
+                      <!-- <tr>
                         <td>1001</td>
                         <td>手机</td>
                         <td>88元</td>
@@ -170,10 +170,47 @@
                           <span> | </span>
                           <span class="delInfo">删除</span>
                         </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
+                  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品名称</label>
+                                <input type="text" class="form-control goods-name" id="recipient-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品价格</label>
+                                <input type="text" class="form-control goods-price" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品所在地</label>
+                                <input type="text" class="form-control gooods-ad" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">商品描述</label>
+                                <textarea class="form-control goods-des" id="message-text"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination"></ul>
+                </nav>
                 <!-- 服装 -->
                 <div role="tabpanel" class="tab-pane fade" id="clothes" aria-labelledby="clothes-tab">
                   <table class="table table-hover">
@@ -186,8 +223,8 @@
                       <th>商品上传时间</th>
                       <th>操作</th>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody class="tab-body">
+                      <!-- <tr>
                         <td>1001</td>
                         <td>衣服</td>
                         <td>88元</td>
@@ -199,18 +236,175 @@
                           <span> | </span>
                           <span class="delInfo">删除</span>
                         </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
+                  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品名称</label>
+                                <input type="text" class="form-control user-name" id="recipient-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品价格</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品所在地</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">商品描述</label>
+                                <textarea class="form-control des" id="message-text"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination"></ul>
+                </nav>
                 <!-- 美妆 -->
                 <div role="tabpanel" class="tab-pane fade" id="beauty" aria-labelledby="beauty-tab">
-                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                  <thead>
+                    <th>上传用户</th>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>商品所在地</th>
+                    <th>商品描述</th>
+                    <th>商品上传时间</th>
+                    <th>操作</th>
+                  </thead>
+                  <tbody class="tab-body">
+                    <!-- <tr>
+                      <td>1001</td>
+                      <td>衣服</td>
+                      <td>88元</td>
+                      <td>北京</td>
+                      <td>很好呀</td>
+                      <td>2019年</td>
+                      <td>
+                        <span class="updateInfo">编辑</span>
+                        <span> | </span>
+                        <span class="delInfo">删除</span>
+                      </td>
+                    </tr> -->
+                  </tbody>
+                  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品名称</label>
+                                <input type="text" class="form-control user-name" id="recipient-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品价格</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品所在地</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">商品描述</label>
+                                <textarea class="form-control des" id="message-text"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination"></ul>
+                </nav>
                 <!-- 其它 -->
                 <div role="tabpanel" class="tab-pane fade" id="other" aria-labelledby="other-tab">
-                  <p>sssssssssssssssssssssssssssssss</p>
+                  <thead>
+                    <th>上传用户</th>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>商品所在地</th>
+                    <th>商品描述</th>
+                    <th>商品上传时间</th>
+                    <th>操作</th>
+                  </thead>
+                  <tbody class="tab-body">
+                    <!-- <tr>
+                      <td>1001</td>
+                      <td>衣服</td>
+                      <td>88元</td>
+                      <td>北京</td>
+                      <td>很好呀</td>
+                      <td>2019年</td>
+                      <td>
+                        <span class="updateInfo">编辑</span>
+                        <span> | </span>
+                        <span class="delInfo">删除</span>
+                      </td>
+                    </tr> -->
+                  </tbody>
+                  <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品名称</label>
+                                <input type="text" class="form-control user-name" id="recipient-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品价格</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">商品所在地</label>
+                                <input type="text" class="form-control password" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">商品描述</label>
+                                <textarea class="form-control des" id="message-text"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination"></ul>
+                </nav>
               </div>
         </div>
       </div>
