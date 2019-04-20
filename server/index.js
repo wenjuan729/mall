@@ -72,7 +72,8 @@ app.get("/getUserMsg", loader.get("/getUserMsg"));
 //管理员修改用户信息
 app.get("/updateUserMsg", loader.get("/updateUserMsg"));
 
-
+//管理员删除用户
+app.get("/delUserMsg", loader.get("/delUserMsg"));
 
 
 app.listen(globalConfig["port"],function () {

@@ -107,6 +107,17 @@ function updateUserMsg (request,response) {
 }
 path.set("/updateUserMsg" ,updateUserMsg);
 
+//管理员删除用户信息
+function delUserMsg (request,response) {
+    var params = url.parse(request.url,true).query;
+    registerDao.delUserMsg(params.username,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","用户信息删除成功",null));
+        response.end();
+    })
+}
+path.set("/delUserMsg",delUserMsg);
+
 
 
 module.exports.path = path;

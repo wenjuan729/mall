@@ -119,6 +119,22 @@ function updateUserMsg (password,describe,ctime,username,success) {
     connection.end();
 }
 
+//管理员删除用户信息
+function  delUserMsg (username,success) {
+    var deleteSql = "delete from login where user_name= ?;";
+    var connection = dbutil.createConnection();
+
+    connection.connect();
+    connection.query(deleteSql,username,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
 module.exports.updatePersonalList = updatePersonalList;
@@ -126,3 +142,4 @@ module.exports.updatePersonalPassword = updatePersonalPassword;
 module.exports.getUserMsg = getUserMsg;
 module.exports.getUserMsgTotal = getUserMsgTotal;
 module.exports.updateUserMsg = updateUserMsg;
+module.exports.delUserMsg = delUserMsg;
