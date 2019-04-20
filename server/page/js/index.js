@@ -7,11 +7,10 @@
         })
         // 手机
         sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
-            // console.log(res.data);
-            renderData1(res.data, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1")
+            renderData1(JSON.parse(res), $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1)
         })
         sendAjax('GET', '/getPhoneGoodsCount', function (res) {
-            renderTurnPage(res.data[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1");
+            renderTurnPage(JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1");
         })
     }
 
@@ -48,7 +47,7 @@
     }
 
     // 商品管理页面
-    function renderData1(arr, dom, exampleModal, firstNum = 0) {
+    function renderData1(arr, dom, exampleModal, bindFunc, firstNum = 0) {
         var str = ''
         arr.forEach((ele, index) => {
             str += `<tr>
@@ -66,7 +65,7 @@
                     </tr>`
         });
         dom.html(str);
-        bindEvent(arr);
+        bindFunc(arr);
     }
 
     function renderTurnPage(total, dom, url, func, dom1, exampleModal) {
@@ -93,20 +92,25 @@
         for(let i = 0; i < num; i ++) {
             $(".pagination li").find(".num").eq(i).on('click', function() {
                 // i * 8
-                sendAjax('GET', `/${url}?offset=${i * 8}&limit=8`, function (res) {
-                    if (func == renderData) {
+                console.log(func == renderData)
+                if (func == renderData) {
+                    sendAjax('GET', `/${url}?offset=${i * 8}&limit=8`, function (res) {
                         func(JSON.parse(res).rows, dom, i * 8);
-                    } else {
-                        func(res.data, dom, exampleModal, i * 8);
-                    }
-                })
+                    })
+                } else {
+                    sendAjax('GET', `/${url}?currentPage=${i}&pageSize=8`, function (res) {
+                        console.log(JSON.parse(res))
+                        func(JSON.parse(res), dom, exampleModal, i * 8);
+                    })
+                }
             })
         }
     }
 
     function bindEvent(res) {
-        var data = res[ $(this).parent().attr('data') ];
+        
         $('.contentTable1').find('.updateInfo').on('click', function () {
+            var data = res[ $(this).parent().attr('data') ];
             console.log(data);
             $('.contentTable1').find('.user-name').val(data.user_name);
             $('.contentTable1').find('.password').val(data.password);
@@ -129,6 +133,7 @@
             }
         })
         $('.contentTable1').find('.delInfo').on('click', function () {
+            var data = res[ $(this).parent().attr('data') ];
             sendAjax('GET', `/delUserMsg?username=${data.user_name}`, function (res) {
                 if (JSON.parse(res).msg == '用户信息删除成功') {
                     alert('该用户已成功注销')
@@ -136,9 +141,14 @@
                 }
             })
         })
+    }
+
+    function bindEvent1(res) {
         // 手机
+        var $goodsId = null;
         $('.contentTable2 #phone').find('.updateInfo').on('click', function () {
-            console.log(data);
+            var data = res[ $(this).parent().attr('data') ];
+            $goodsId = res[ $(this).parent().attr('data') ].goods_id;
             $('.contentTable2 #phone').find('.goods-name').val(data.title);
             $('.contentTable2 #phone').find('.goods-price').val(data.price);
             $('.contentTable2 #phone').find('.goods-ad').val(data.address);
@@ -150,12 +160,14 @@
             var goodAd = $('.contentTable2 #phone').find('.goods-ad').val();
             var goodDes = $('.contentTable2 #phone').find('.goods-des').val();
             if (goodName && goodPrice && goodAd && goodDes) {
-                sendAjax('GET', `/AdminUpdateGoodList?title=${goodName}&price=${goodPrice}&address=${goodAd}&introduce=${goodDes}&goods_id=${data.goods_id}`, function (res) {
+                sendAjax('GET', `/AdminUpdateGoodList?title=${goodName}&price=${goodPrice}&address=${goodAd}&introduce=${goodDes}&goods_id=${$goodsId}`, function (res) {
                     console.log(JSON.parse(res));
-                    // if (JSON.parse(res).msg == '用户信息修改成功') {
-                    //     alert('用户信息修改成功')
-                    //     window.location.reload()
-                    // }
+                    if (JSON.parse(res).msg == '商品信息修改成功') {
+                        alert('商品信息修改成功')
+                        $('#exampleModal1').css('display', 'none');
+                        $('.modal-backdrop').css('display', 'none')
+                        init();
+                    }
                 })
             } else {
                 alert('请填写完整信息');
