@@ -195,6 +195,18 @@ function deleatGoods (request,response) {
 }
 path.set("/deleatGoods",deleatGoods);
 
+//管理员修改商品信息
+function AdminUpdateGoodList (request,response) {
+    var params = url.parse(request.url,true).query;
+    console.log(params);
+    goodsDao.AdminUpdateGoodList(params.title,params.price,params.address,params.introduce,timeUtil.getNow(),params.goods_id,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","商品信息修改成功",JSON.stringify(result)));
+        response.end();
+    })
+}
+path.set("/AdminUpdateGoodList" ,AdminUpdateGoodList);
+
 
 
 

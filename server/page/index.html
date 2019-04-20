@@ -45,6 +45,7 @@
     </ul>
     <!-- 内容展示区 -->
     <div class="tab-content contentBox navRight">
+      <!-- 用户管理 -->
       <div role="tabpanel" class="tab-pane fade in active contentTab" id="home">
         <div class="contentHeader">
           用户信息管理
@@ -115,6 +116,7 @@
         </div>
         
       </div>
+      <!-- 商品管理 -->
       <div role="tabpanel" class="tab-pane fade contentTab" id="profile">
         <div class="contentHeader">
           商品管理
@@ -212,9 +214,62 @@
               </div>
         </div>
       </div>
+      <!-- 订单管理 -->
       <div role="tabpanel" class="tab-pane fade contentTab" id="messages">
         <div class="contentHeader">
-           订单管理
+          用户订单管理
+        </div>
+        <div class="contentWrapper">
+          <div class="contentWapperHerder">
+            <span class="orderName">用户名称:</span>
+            <div class="orderNameSearch">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="请输入想查询的用户名称">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+                </div>
+            </div>
+          </div>
+          <div class="contentWrapperMain">
+            <table class="table table-bordered">
+              <thead>
+                <th>序号</th>
+                <th>用户名</th>
+                <th>商品名称</th>
+                <th>商品图片</th>
+                <th>商品价格</th>
+                <th>下单时间</th>
+                <th>操作</th>
+              </thead>
+              <tbody class="tab-body">
+                <tr>
+                  <td>1</td>
+                  <td>1001</td>
+                  <td>雅诗兰黛 摩登缪斯女神香水</td>
+                  <td>pic</td>
+                  <td>699</td>
+                  <td>2018年</td>
+                  <td>
+                    <span class="delInfo">删除</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>1001</td>
+                  <td>雅诗兰黛 摩登缪斯女神香水</td>
+                  <td>pic</td>
+                  <td>699</td>
+                  <td>2018年</td>
+                  <td>
+                    <span class="delInfo">删除</span>
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+            
+            
         </div>
       </div>
       <!-- <div role="tabpanel" class="tab-pane fade" id="settings">444</div> -->

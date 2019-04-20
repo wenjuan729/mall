@@ -75,6 +75,8 @@ app.get("/updateUserMsg", loader.get("/updateUserMsg"));
 //管理员删除用户
 app.get("/delUserMsg", loader.get("/delUserMsg"));
 
+//管理员修改用户信息
+app.get("/AdminUpdateGoodList", loader.get("/AdminUpdateGoodList"));
 
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");

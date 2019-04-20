@@ -253,6 +253,22 @@ function  deleatGoods (Id,success) {
     connection.end();
 }
 
+//管理员修改商品信息
+function AdminUpdateGoodList (title,price,address,introduce,utime,goodsId,success) {
+    var uploadSql = "update goods set title= ?,price= ?,address= ?,introduce= ?,utime= ? where goods_id= ?;";
+    var params = [title,price,address,introduce,utime,goodsId];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(uploadSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
 
 
 module.exports = {"insertGoodsList":insertGoodsList,
@@ -271,4 +287,5 @@ module.exports = {"insertGoodsList":insertGoodsList,
                   "getOtherGoodsByPage":getOtherGoodsByPage,
                   "getOtherGoodsCount":getOtherGoodsCount,
                   "deleatGoods":deleatGoods,
+                  "AdminUpdateGoodList":AdminUpdateGoodList,
                  };
