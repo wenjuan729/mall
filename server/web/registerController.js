@@ -101,7 +101,7 @@ function updateUserMsg (request,response) {
     console.log(params);
     registerDao.updateUserMsg(params.password,params.describe,timeUtil.getNow(),params.username,function (result) {
         response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
-        response.write(respUtil.writeResult("success","用户信息修改成功",JSON.stringify(result)));
+        response.write(respUtil.writeResult("success","用户信息修改成功",result));
         response.end();
     })
 }

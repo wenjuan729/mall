@@ -81,11 +81,14 @@
         $('.contentTable1').find('.btn-primary').on('click', function () {
             var userName = $('.contentTable1').find('.user-name').val();
             var password = $('.contentTable1').find('.password').val();
-            var des = $('.contentTable1').find('.des').text();
+            var des = $('.contentTable1').find('.des').val();
             if (userName && password && des) {
+                console.log(userName,password,des)
                 sendAjax('GET', `/updateUserMsg?username=${userName}&password=${password}&describe=${des}`, function (res) {
-                    console.log(res);
-                    // window.location.reload()
+                    if (JSON.parse(res).msg == '用户信息修改成功') {
+                        alert('用户信息修改成功')
+                        window.location.reload()
+                    }
                 })
             } else {
                 alert('请填写完整信息');
@@ -93,9 +96,11 @@
         })
         $('.contentTable1').find('.delInfo').on('click', function () {
             var data = res[ $(this).parent().attr('data') ];
-            sendAjax('GET', `/delUserMsg?${data.user_name}`, function (res) {
-                console.log(res);
-                // window.location.reload()
+            sendAjax('GET', `/delUserMsg?username=${data.user_name}`, function (res) {
+                if (JSON.parse(res).msg == '用户信息删除成功') {
+                    alert('该用户已成功注销')
+                    window.location.reload()
+                }
             })
         })
     }

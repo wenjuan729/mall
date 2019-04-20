@@ -104,7 +104,7 @@ function getUserMsgTotal(success) {
 
 // 管理员修改用户信息
 function updateUserMsg (password,describe,ctime,username,success) {
-    var uploadSql = "update login set `password`= ?,`password`= ?,`ctime`= ? where `user_name`= ?;";
+    var uploadSql = "update login set `password`= ?,`describe`= ?,`ctime`= ? where `user_name`= ?;";
     var params = [password,describe,ctime,username];
 
     var connection = dbutil.createConnection();
