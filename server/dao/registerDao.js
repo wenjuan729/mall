@@ -67,7 +67,7 @@ function updatePersonalPassword (password,ctime,id,success) {
     connection.end();
 }
 
-// 获取用户信息
+// 管理员获取用户信息
 function getUserMsg(offset, limit, success) {
     var params = [parseInt(offset), parseInt(limit)];
     var selectSql = "select * from login order by ctime desc limit ?, ?;";
@@ -85,7 +85,7 @@ function getUserMsg(offset, limit, success) {
     connection.end();
 }
 
-// 获取用户总数 
+// 管理员获取用户总数 
 function getUserMsgTotal(success) {
     var selectSql = "select count(1) as count from login;";
 
@@ -102,9 +102,27 @@ function getUserMsgTotal(success) {
     connection.end();
 }
 
+// 管理员修改用户信息
+function updateUserMsg (password,describe,ctime,username,success) {
+    var uploadSql = "update login set `password`= ?,`password`= ?,`ctime`= ? where `user_name`= ?;";
+    var params = [password,describe,ctime,username];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(uploadSql,params,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
 module.exports.updatePersonalList = updatePersonalList;
 module.exports.updatePersonalPassword = updatePersonalPassword;
 module.exports.getUserMsg = getUserMsg;
 module.exports.getUserMsgTotal = getUserMsgTotal;
+module.exports.updateUserMsg = updateUserMsg;

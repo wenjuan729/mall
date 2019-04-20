@@ -66,8 +66,13 @@ app.get("/addBuyGoods",loader.get("/addBuyGoods"))
 
 app.get("/queryBuyGoodsByUsername",loader.get("/queryBuyGoodsByUsername"))
 
-// 获取用户信息
+// 管理员获取用户信息
 app.get("/getUserMsg", loader.get("/getUserMsg"));
+
+//管理员修改用户信息
+app.get("/updateUserMsg", loader.get("/updateUserMsg"));
+
+
 
 
 app.listen(globalConfig["port"],function () {

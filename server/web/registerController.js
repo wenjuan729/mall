@@ -81,9 +81,9 @@ function updatePersonalPassword (request,response) {
 }
 path.set("/updatePersonalPassword" ,updatePersonalPassword);
 
-// 获取用户信息
+// 管理员获取用户信息
 function getUserMsg(request,response) {
-    console.log(request.url)
+    // console.log(request.url)
     var params = url.parse(request.url,true).query;
     registerDao.getUserMsg(params.offset, params.limit, function (result) {
         registerDao.getUserMsgTotal(function (count) {
@@ -94,5 +94,19 @@ function getUserMsg(request,response) {
     })
 }
 path.set("/getUserMsg", getUserMsg);
+
+//管理员修改用户信息
+function updateUserMsg (request,response) {
+    var params = url.parse(request.url,true).query;
+    console.log(params);
+    registerDao.updateUserMsg(params.password,params.describe,timeUtil.getNow(),params.username,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","用户信息修改成功",JSON.stringify(result)));
+        response.end();
+    })
+}
+path.set("/updateUserMsg" ,updateUserMsg);
+
+
 
 module.exports.path = path;
