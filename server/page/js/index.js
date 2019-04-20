@@ -78,6 +78,26 @@
             $('.contentTable1').find('.password').val(data.password);
             $('.contentTable1').find('.des').text(data.describe);
         })
+        $('.contentTable1').find('.btn-primary').on('click', function () {
+            var userName = $('.contentTable1').find('.user-name').val();
+            var password = $('.contentTable1').find('.password').val();
+            var des = $('.contentTable1').find('.des').text();
+            if (userName && password && des) {
+                sendAjax('GET', `/updateUserMsg?username=${userName}&password=${password}&describe=${des}`, function (res) {
+                    console.log(res);
+                    // window.location.reload()
+                })
+            } else {
+                alert('请填写完整信息');
+            }
+        })
+        $('.contentTable1').find('.delInfo').on('click', function () {
+            var data = res[ $(this).parent().attr('data') ];
+            sendAjax('GET', `/delUserMsg?${data.user_name}`, function (res) {
+                console.log(res);
+                // window.location.reload()
+            })
+        })
     }
 
     init();
