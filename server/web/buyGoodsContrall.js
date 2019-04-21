@@ -1,4 +1,5 @@
 var buyGoodsDao = require("../dao/buyGoodsDao");
+var registerDao = require("../dao/registerDao");
 var timeUtil = require('../util/TimeUtil');
 var respUtil = require("../util/RespUtil");
 var url = require("url");
@@ -52,6 +53,57 @@ function adminDelBuyGoods (request,response) {
     })
 }
 path.set("/adminDelBuyGoods",adminDelBuyGoods);
+
+//管理员查询某位用户订单
+function adminGetBuyGoodsByUsername (request,response) {
+    var params = url.parse(request.url,true).query;
+    //获取到网站用户名
+    registerDao.adminGetAllUsername(function (result) {
+        var resultArr = JSON.parse(JSON.stringify(result));
+        var usernameArr = [];
+        //获取用户名数组
+        resultArr.forEach(function (ele,index) {
+            usernameArr.push(ele.user_name)
+        })
+        if(usernameArr.indexOf(params.username) != -1) {
+            //存在该用户名就根据用户名查询用户订单
+            buyGoodsDao.queryBuyGoodsByUsername (params.username,function (result) {
+                if(result && result.length > 0) {
+                    //存在订单信息就把订单信息返回
+                    response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+                    response.write(respUtil.writeResult("success","用户订单数据查询成功",JSON.stringify(result)));
+                    response.end();
+                }else{
+                    //不存在订单信息就返回空
+                    response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+                    response.write(respUtil.writeResult("success","用户暂无订单数据",null));
+                    response.end();
+                }    
+            })
+        }else{
+            //不存在用户名就返回失败信息
+            response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+            response.write(respUtil.writeResult("error","用户名不存在请重新输入",null));
+            response.end();
+        }
+    })
+}
+path.set("/adminGetBuyGoodsByUsername" ,adminGetBuyGoodsByUsername);
+
+// registerDao.adminGetAllUsername(function (result) {
+//     var resultArr = JSON.parse(JSON.stringify(result));
+//     console.log(resultArr)
+//     var usernameArr = [];
+//     resultArr.forEach(function (ele,index) {
+//         usernameArr.push(ele.user_name)
+//     })
+//     console.log(usernameArr)
+//     var username = '1001';
+//     if(usernameArr.indexOf(username != -1)) {
+//         console.log(111)
+//     }
+
+// });
 
 
 

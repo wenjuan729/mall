@@ -84,6 +84,9 @@ app.get("/adminGetAllBuyGoodsList", loader.get("/adminGetAllBuyGoodsList"));
 //管理员删除订单
 app.get("/adminDelBuyGoods", loader.get("/adminDelBuyGoods"));
 
+//管理员根据用户名查询用户订单
+app.get("/adminGetBuyGoodsByUsername", loader.get("/adminGetBuyGoodsByUsername"));
+
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
 });

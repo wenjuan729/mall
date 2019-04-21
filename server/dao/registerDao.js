@@ -135,6 +135,22 @@ function  delUserMsg (username,success) {
     connection.end();
 }
 
+//管理员查询所有用户名
+function adminGetAllUsername (success) {
+    var selectSql = "select  user_name from login;";
+    var connection = dbutil.createConnection();
+
+    connection.connect();
+    connection.query(selectSql,function(error,result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertRegister = insertRegister;
 module.exports.queryLoginByUsername = queryLoginByUsername;
 module.exports.updatePersonalList = updatePersonalList;
@@ -143,3 +159,4 @@ module.exports.getUserMsg = getUserMsg;
 module.exports.getUserMsgTotal = getUserMsgTotal;
 module.exports.updateUserMsg = updateUserMsg;
 module.exports.delUserMsg = delUserMsg;
+module.exports.adminGetAllUsername = adminGetAllUsername;
