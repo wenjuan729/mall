@@ -29,6 +29,30 @@ function queryBuyGoodsByUsername (request,response) {
 }
 path.set("/queryBuyGoodsByUsername" ,queryBuyGoodsByUsername);
 
+//管理员分页查看所有订单信息  adminGetAllBuyGoodsList
+function adminGetAllBuyGoodsList(request,response) {
+    var params = url.parse(request.url,true).query;
+    buyGoodsDao.adminGetAllBuyGoodsList(params.offset, params.limit, function (result) {
+        buyGoodsDao.adminGetAllBuyGoodsTotal(function (count) {
+            response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+            response.write(JSON.stringify({total: count[0].count, rows: result}));
+            response.end();
+        })
+    })
+}
+path.set("/adminGetAllBuyGoodsList", adminGetAllBuyGoodsList);
+
+//管理员删除订单信息
+function adminDelBuyGoods (request,response) {
+    var params = url.parse(request.url,true).query;
+    buyGoodsDao.adminDelBuyGoods(params.buyGoodsId,function (result) {
+        response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
+        response.write(respUtil.writeResult("success","用户订单删除成功",null));
+        response.end();
+    })
+}
+path.set("/adminDelBuyGoods",adminDelBuyGoods);
+
 
 
 

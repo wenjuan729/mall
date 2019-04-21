@@ -78,6 +78,12 @@ app.get("/delUserMsg", loader.get("/delUserMsg"));
 //管理员修改用户信息
 app.get("/AdminUpdateGoodList", loader.get("/AdminUpdateGoodList"));
 
+//管理员获取订单信息
+app.get("/adminGetAllBuyGoodsList", loader.get("/adminGetAllBuyGoodsList"));
+
+//管理员删除订单
+app.get("/adminDelBuyGoods", loader.get("/adminDelBuyGoods"));
+
 app.listen(globalConfig["port"],function () {
     console.log("服务已启动");
 });

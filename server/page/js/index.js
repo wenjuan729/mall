@@ -5,33 +5,41 @@
             renderData(JSON.parse(res).rows, $('.contentTable1').find('.tab-body'));
             renderTurnPage('.contentTable1', JSON.parse(res).total, $(".contentTable1 .pagination"), 'getUserMsg', renderData, $('.contentTable1').find('.tab-body'), "#exampleModal1");
         })
-        // 手机
-        sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
-            renderData1(JSON.parse(res), $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1)
+        $('#shangpin').on('click', function (){
+            // 手机
+            sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
+                renderData1(JSON.parse(res), $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1, $('.contentTable2 #phone'))
+            })
+            sendAjax('GET', '/getPhoneGoodsCount', function (res) {
+                renderTurnPage('#phone', JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1, $('.contentTable2 #phone'));
+            })
         })
-        sendAjax('GET', '/getPhoneGoodsCount', function (res) {
-            renderTurnPage('#phone', JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1);
+        $('#clothes-tab').on('click', function () {
+            // 服装
+            sendAjax('GET', '/getClothesGoodsByPage?currentPage=0&pageSize=8', function (res) {
+                renderData1(JSON.parse(res), $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1, $('.contentTable2 #clothes'))
+            })
+            sendAjax('GET', '/getClothesGoodsCount', function (res) {
+                renderTurnPage('#clothes', JSON.parse(res)[0].count, $(".contentTable2 #clothes .pagination"), 'getClothesGoodsByPage', renderData1, $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1, $('.contentTable2 #clothes'));
+            })
         })
-        // 服装
-        sendAjax('GET', '/getClothesGoodsByPage?currentPage=0&pageSize=8', function (res) {
-            renderData1(JSON.parse(res), $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1)
+        $('#beauty-tab').on('click', function () {
+            // 美妆
+            sendAjax('GET', '/getBeautyGoodsByPage?currentPage=0&pageSize=8', function (res) {
+                renderData1(JSON.parse(res), $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal3", bindEvent1, $('.contentTable2 #beauty'))
+            })
+            sendAjax('GET', '/getBeautyGoodsCount', function (res) {
+                renderTurnPage('#beauty', JSON.parse(res)[0].count, $(".contentTable2 #beauty .pagination"), 'getBeautyGoodsByPage', renderData1, $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal3", bindEvent1, $('.contentTable2 #beauty'));
+            })
         })
-        sendAjax('GET', '/getClothesGoodsCount', function (res) {
-            renderTurnPage('#clothes', JSON.parse(res)[0].count, $(".contentTable2 #clothes .pagination"), 'getClothesGoodsByPage', renderData1, $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1);
-        })
-        // 美妆
-        sendAjax('GET', '/getBeautyGoodsByPage?currentPage=0&pageSize=8', function (res) {
-            renderData1(JSON.parse(res), $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal2", bindEvent1)
-        })
-        sendAjax('GET', '/getBeautyGoodsCount', function (res) {
-            renderTurnPage('#beauty', JSON.parse(res)[0].count, $(".contentTable2 #beauty .pagination"), 'getBeautyGoodsByPage', renderData1, $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal2", bindEvent1);
-        })
-        // 其它
-        sendAjax('GET', '/getOtherGoodsByPage?currentPage=0&pageSize=8', function (res) {
-            renderData1(JSON.parse(res), $('.contentTable2 #other').find('.tab-body'), "#exampleModal2", bindEvent1)
-        })
-        sendAjax('GET', '/getOtherGoodsCount', function (res) {
-            renderTurnPage('#other', JSON.parse(res)[0].count, $(".contentTable2 #other .pagination"), 'getOtherGoodsByPage', renderData1, $('.contentTable2 #other').find('.tab-body'), "#exampleModal2", bindEvent1);
+        $('#other-tab').on('click', function () {
+            // 其它
+            sendAjax('GET', '/getOtherGoodsByPage?currentPage=0&pageSize=8', function (res) {
+                renderData1(JSON.parse(res), $('.contentTable2 #other').find('.tab-body'), "#exampleModal4", bindEvent1, $('.contentTable2 #other'))
+            })
+            sendAjax('GET', '/getOtherGoodsCount', function (res) {
+                renderTurnPage('#other', JSON.parse(res)[0].count, $(".contentTable2 #other .pagination"), 'getOtherGoodsByPage', renderData1, $('.contentTable2 #other').find('.tab-body'), "#exampleModal4", bindEvent1, $('.contentTable2 #other'));
+            })
         })
     }
 
@@ -69,7 +77,7 @@
     }
 
     // 商品管理页面
-    function renderData1(arr, dom, exampleModal, bindFunc, firstNum = 0) {
+    function renderData1(arr, dom, exampleModal, bindFunc, body, firstNum = 0) {
         var str = ''
         arr.forEach((ele, index) => {
             str += `<tr>
@@ -87,10 +95,10 @@
                     </tr>`
         });
         dom.html(str);
-        bindFunc(arr);
+        bindFunc(arr, body, exampleModal);
     }
 
-    function renderTurnPage(type, total, dom, url, func, dom1, exampleModal, bindFunc) {
+    function renderTurnPage(type, total, dom, url, func, dom1, exampleModal, bindFunc, body) {
         var prevStr = `<li>
                             <a class="prev" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -107,10 +115,10 @@
             str += `<li><a class="num" href="#">${i + 1}</a></li>`;
         }
         dom.html(prevStr + str + nextStr);
-        truePageClick(type, len, url, func, dom1, exampleModal, bindFunc)
+        truePageClick(type, len, url, func, dom1, exampleModal, bindFunc, body)
     }
 
-    function truePageClick(type, num, url, func, dom, exampleModal, bindFunc) {
+    function truePageClick(type, num, url, func, dom, exampleModal, bindFunc, body) {
         for(let i = 0; i < num; i ++) {
             $(type +" .pagination li").find(".num").eq(i).on('click', function() {
                 // i * 8
@@ -121,7 +129,7 @@
                     })
                 } else {
                     sendAjax('GET', `/${url}?currentPage=${i}&pageSize=8`, function (res) {
-                        func(JSON.parse(res), dom, exampleModal, bindFunc, i * 8);
+                        func(JSON.parse(res), dom, exampleModal, bindFunc, body, i * 8);
                     })
                 }
             })
@@ -164,30 +172,41 @@
         })
     }
 
-    function bindEvent1(res) {
+    function bindEvent1(res, body, exampleModal) {
         // 手机
         var $goodsId = null;
-        $('.contentTable2 #phone').find('.updateInfo').on('click', function () {
+        body.find('.updateInfo').on('click', function () {
             var data = res[ $(this).parent().attr('data') ];
-            $goodsId = res[ $(this).parent().attr('data') ].goods_id;
-            $('.contentTable2 #phone').find('.goods-name').val(data.title);
-            $('.contentTable2 #phone').find('.goods-price').val(data.price);
-            $('.contentTable2 #phone').find('.goods-ad').val(data.address);
-            $('.contentTable2 #phone').find('.goods-des').val(data.introduce);
+            $goodsId = data.goods_id;
+            body.find('.goods-name').val(data.title);
+            body.find('.goods-price').val(data.price);
+            body.find('.goods-ad').val(data.address);
+            body.find('.goods-des').val(data.introduce);
         })
-        $('.contentTable2 #phone').find('.btn-primary').on('click', function () {
-            var goodName = $('.contentTable2 #phone').find('.goods-name').val();
-            var goodPrice = $('.contentTable2 #phone').find('.goods-price').val();
-            var goodAd = $('.contentTable2 #phone').find('.goods-ad').val();
-            var goodDes = $('.contentTable2 #phone').find('.goods-des').val();
+        body.find('.delInfo').on('click', function () {
+            var data = res[ $(this).parent().attr('data') ];
+            sendAjax('GET', `/deleatGoods?id=${data.goods_id}`, function (res) {
+                if (JSON.parse(res).msg == '商品删除成功') {
+                    alert('用户信息修改成功')
+                    window.location.reload()
+                }
+            })
+        })
+        body.find('.btn-primary').on('click', function () {
+            var goodName = body.find('.goods-name').val();
+            var goodPrice = body.find('.goods-price').val();
+            var goodAd = body.find('.goods-ad').val();
+            var goodDes = body.find('.goods-des').val();
             if (goodName && goodPrice && goodAd && goodDes) {
                 sendAjax('GET', `/AdminUpdateGoodList?title=${goodName}&price=${goodPrice}&address=${goodAd}&introduce=${goodDes}&goods_id=${$goodsId}`, function (res) {
-                    console.log(JSON.parse(res));
                     if (JSON.parse(res).msg == '商品信息修改成功') {
                         alert('商品信息修改成功')
-                        $('#exampleModal1').css('display', 'none');
-                        $('.modal-backdrop').css('display', 'none')
-                        init();
+                        // $(exampleModal).css('display', 'none');
+                        // $('.modal-backdrop').remove();
+                        // $("body").css("overflow-y","auto");
+                        // $("body").css("overflow-x","auto");
+                        // init();
+                        window.location.reload()
                     }
                 })
             } else {
