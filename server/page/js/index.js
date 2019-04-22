@@ -5,7 +5,7 @@
             renderData(JSON.parse(res).rows, $('.contentTable1').find('.tab-body'));
             renderTurnPage('.contentTable1', JSON.parse(res).total, $(".contentTable1 .pagination"), 'getUserMsg', renderData, $('.contentTable1').find('.tab-body'), "#exampleModal1");
         })
-        $('#shangpin').on('click', function (){
+        // $('#shangpin').on('click', function (){
             // 手机
             sendAjax('GET', '/getPhoneGoodsByPage?currentPage=0&pageSize=8', function (res) {
                 renderData1(JSON.parse(res), $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1, $('.contentTable2 #phone'))
@@ -13,8 +13,8 @@
             sendAjax('GET', '/getPhoneGoodsCount', function (res) {
                 renderTurnPage('#phone', JSON.parse(res)[0].count, $(".contentTable2 #phone .pagination"), 'getPhoneGoodsByPage', renderData1, $('.contentTable2 #phone').find('.tab-body'), "#exampleModal1", bindEvent1, $('.contentTable2 #phone'));
             })
-        })
-        $('#clothes-tab').on('click', function () {
+        // })
+        // $('#clothes-tab').on('click', function () {
             // 服装
             sendAjax('GET', '/getClothesGoodsByPage?currentPage=0&pageSize=8', function (res) {
                 renderData1(JSON.parse(res), $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1, $('.contentTable2 #clothes'))
@@ -22,8 +22,8 @@
             sendAjax('GET', '/getClothesGoodsCount', function (res) {
                 renderTurnPage('#clothes', JSON.parse(res)[0].count, $(".contentTable2 #clothes .pagination"), 'getClothesGoodsByPage', renderData1, $('.contentTable2 #clothes').find('.tab-body'), "#exampleModal2", bindEvent1, $('.contentTable2 #clothes'));
             })
-        })
-        $('#beauty-tab').on('click', function () {
+        // })
+        // $('#beauty-tab').on('click', function () {
             // 美妆
             sendAjax('GET', '/getBeautyGoodsByPage?currentPage=0&pageSize=8', function (res) {
                 renderData1(JSON.parse(res), $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal3", bindEvent1, $('.contentTable2 #beauty'))
@@ -31,8 +31,8 @@
             sendAjax('GET', '/getBeautyGoodsCount', function (res) {
                 renderTurnPage('#beauty', JSON.parse(res)[0].count, $(".contentTable2 #beauty .pagination"), 'getBeautyGoodsByPage', renderData1, $('.contentTable2 #beauty').find('.tab-body'), "#exampleModal3", bindEvent1, $('.contentTable2 #beauty'));
             })
-        })
-        $('#other-tab').on('click', function () {
+        // })
+        // $('#other-tab').on('click', function () {
             // 其它
             sendAjax('GET', '/getOtherGoodsByPage?currentPage=0&pageSize=8', function (res) {
                 renderData1(JSON.parse(res), $('.contentTable2 #other').find('.tab-body'), "#exampleModal4", bindEvent1, $('.contentTable2 #other'))
@@ -40,6 +40,12 @@
             sendAjax('GET', '/getOtherGoodsCount', function (res) {
                 renderTurnPage('#other', JSON.parse(res)[0].count, $(".contentTable2 #other .pagination"), 'getOtherGoodsByPage', renderData1, $('.contentTable2 #other').find('.tab-body'), "#exampleModal4", bindEvent1, $('.contentTable2 #other'));
             })
+        // })
+        // 订单管理
+        sendAjax('GET', `/adminGetAllBuyGoodsList?offset=0&limit=6`, function (res) {
+            console.log(JSON.parse(res))
+            renderData2(JSON.parse(res).rows, $('#messages').find('.tab-body'))
+            renderTurnPage2(JSON.parse(res).total);
         })
     }
 
@@ -96,6 +102,26 @@
         });
         dom.html(str);
         bindFunc(arr, body, exampleModal);
+    }
+
+    // 订单管理
+    function renderData2(arr, dom, firstNum = 0) {
+        var str = ''
+        arr.forEach((ele, index) => {
+            str += `<tr>
+                        <td>${firstNum + index + 1}</td>
+                        <td>${ele.username}</td>
+                        <td>${ele.goods_title}</td>
+                        <td><img src="getPic?path=${ele.goods_img}" /></td>
+                        <td>${ele.goods_price}</td>
+                        <td>${ele.ctime}</td>
+                        <td data=${index}>
+                            <span class="delInfo">删除</span>
+                        </td>
+                    </tr>`
+        });
+        dom.html(str);
+        bindEvent2(arr);
     }
 
     function renderTurnPage(type, total, dom, url, func, dom1, exampleModal, bindFunc, body) {
@@ -172,8 +198,8 @@
         })
     }
 
+    // 商品管理
     function bindEvent1(res, body, exampleModal) {
-        // 手机
         var $goodsId = null;
         body.find('.updateInfo').on('click', function () {
             var data = res[ $(this).parent().attr('data') ];
@@ -187,7 +213,7 @@
             var data = res[ $(this).parent().attr('data') ];
             sendAjax('GET', `/deleatGoods?id=${data.goods_id}`, function (res) {
                 if (JSON.parse(res).msg == '商品删除成功') {
-                    alert('用户信息修改成功')
+                    alert('商品删除成功')
                     window.location.reload()
                 }
             })
@@ -213,6 +239,42 @@
                 alert('请填写完整信息');
             }
         })
+    }
+
+    // 订单管理
+    function bindEvent2(res) {
+
+    }
+
+    function renderTurnPage2(total) {
+        var prevStr = `<li>
+                            <a class="prev" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>`;
+        var nextStr = `<li>
+                            <a class="next" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>`;       
+        var len = Math.ceil(total / 6);
+        var str = '';
+        for(var i = 0; i < len; i ++) {
+            str += `<li><a class="num" href="#">${i + 1}</a></li>`;
+        }
+        $("#messages .pagination").html(prevStr + str + nextStr);
+        truePageClick2(len)
+    }
+
+    function truePageClick2(num) {
+        for(let i = 0; i < num; i ++) {
+            $("#messages .pagination li").find(".num").eq(i).on('click', function() {
+                // i * 6
+                sendAjax('GET', `/adminGetAllBuyGoodsList?offset=${i * 6}&limit=6`, function (res) {
+                    renderData2(JSON.parse(res).rows, $('#messages').find('.tab-body'), i * 6);
+                })
+            })
+        }
     }
 
     init();
