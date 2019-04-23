@@ -256,18 +256,27 @@
             var val = $('#messages').find('.form-control').val();
             if (val.trim()) {
                 sendAjax('GET', `adminGetBuyGoodsByUsername?username=${val}`, function (res) {
-                    renderData2(JSON.parse(JSON.parse(res).data), $('#messages').find('.tab-body'))
+                    // console.log(JSON.parse(res));
+                    if (JSON.parse(res).msg == '用户订单数据查询成功') {
+                        renderData2(JSON.parse(JSON.parse(res).data), $('#messages').find('.tab-body'))
+                    } else if (JSON.parse(res).msg == '用户暂无订单数据') {
+                        $('#messages').find('.tab-body').html('用户暂无订单数据');
+                    } else {
+                        $('#messages').find('.tab-body').html('用户名不存在，请输入正确的用户名');
+                    }
                     $('#messages').find('.page').css('display', 'none');
                     $('#messages').find('.go').css('display', 'block');
+                    $('#messages').find('.err-tip').css('display', 'none');
                 })
             } else {
-                alert('请输入用户名')
+                $('#messages').find('.err-tip').css('display', 'block');
             }
         })
         $('#messages').find('.go').on('click', function () {
             sendAjax('GET', `/adminGetAllBuyGoodsList?offset=0&limit=6`, function (res) {
                 $('#messages').find('.form-control').val('');
                 $('#messages').find('.go').css('display', 'none');
+                $('#messages').find('.page').css('display', 'block');
                 renderData2(JSON.parse(res).rows, $('#messages').find('.tab-body'))
                 renderTurnPage2(JSON.parse(res).total);
             })
