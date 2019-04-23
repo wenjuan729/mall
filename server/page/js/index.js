@@ -243,7 +243,35 @@
 
     // 订单管理
     function bindEvent2(res) {
-
+        $('#messages').find('.delInfo').on('click', function () {
+            var data = res[ $(this).parent().attr('data') ];
+            sendAjax('GET', `adminDelBuyGoods?buyGoodsId=${data.buy_goods_id}`, function (res) {
+                if (JSON.parse(res).msg == '用户订单删除成功') {
+                    alert('用户订单删除成功')
+                    window.location.reload()
+                }
+            })
+        })
+        $('#messages').find('.btn-default').on('click', function () {
+            var val = $('#messages').find('.form-control').val();
+            if (val.trim()) {
+                sendAjax('GET', `adminGetBuyGoodsByUsername?username=${val}`, function (res) {
+                    renderData2(JSON.parse(JSON.parse(res).data), $('#messages').find('.tab-body'))
+                    $('#messages').find('.page').css('display', 'none');
+                    $('#messages').find('.go').css('display', 'block');
+                })
+            } else {
+                alert('请输入用户名')
+            }
+        })
+        $('#messages').find('.go').on('click', function () {
+            sendAjax('GET', `/adminGetAllBuyGoodsList?offset=0&limit=6`, function (res) {
+                $('#messages').find('.form-control').val('');
+                $('#messages').find('.go').css('display', 'none');
+                renderData2(JSON.parse(res).rows, $('#messages').find('.tab-body'))
+                renderTurnPage2(JSON.parse(res).total);
+            })
+        })
     }
 
     function renderTurnPage2(total) {
